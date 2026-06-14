@@ -1,0 +1,3238 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+# Custom scalars
+scalar binary_blockchain_address
+scalar Date
+scalar DateTime
+scalar Decimal
+scalar interval
+scalar interval_or_now
+scalar json
+scalar NaiveDateTime
+scalar SanitizedHtmlSubsetString
+scalar SanitizedStringNoTags
+scalar Upload
+
+enum AccessRestrictionFilterEnum {
+  METRIC
+  QUERY
+  SIGNAL
+}
+
+enum Aggregation {
+  ANY
+  AVG
+  COUNT
+  FIRST
+  LAST
+  MAX
+  MEDIAN
+  MIN
+  NONE
+  OHLC
+  SUM
+}
+
+enum ApiCallAuthMethod {
+  ALL
+  APIKEY
+  BASIC
+  JWT
+}
+
+enum AuthorFilter {
+  ALL
+  FOLLOWED
+  OWN
+  SANFAM
+}
+
+enum BillingStatus {
+  ACTIVE
+  CANCELED
+  INCOMPLETE
+  INCOMPLETE_EXPIRED
+  INITIAL
+  PAST_DUE
+  TRIALING
+  UNPAID
+}
+
+enum ChatMessageFeedbackType {
+  THUMBS_DOWN
+  THUMBS_UP
+}
+
+enum ChatMessageRole {
+  ASSISTANT
+  USER
+}
+
+enum ChatType {
+  ACADEMY_QA
+  DYOR_DASHBOARD
+}
+
+enum ClickhouseMetadataFunctionFilterEnum {
+  SYSTEM
+  USER_DEFINED
+}
+
+enum ColorEnum {
+  BLACK
+  BLUE
+  GREEN
+  GREY
+  NONE
+  RED
+  YELLOW
+}
+
+enum CommentEntityTypeEnum {
+  BLOCKCHAIN_ADDRESS
+  CHART_CONFIGURATION
+  DASHBOARD
+  INSIGHT
+  TIMELINE_EVENT
+  WATCHLIST
+}
+
+enum CursorType {
+  AFTER
+  BEFORE
+}
+
+enum DirectionType {
+  ASC
+  DESC
+}
+
+enum EntityInteractionInteractionType {
+  COMMENT
+  DOWNVOTE
+  UPVOTE
+  VIEW
+}
+
+enum EntityPublicStatus {
+  ALL
+  PRIVATE
+  PUBLIC
+}
+
+enum EntityType {
+  ADDRESS_WATCHLIST
+  CHART_CONFIGURATION
+  DASHBOARD
+  INSIGHT
+  PROJECT_WATCHLIST
+  QUERY
+  SCREENER
+  USER_TRIGGER
+}
+
+enum FiltersCombinator {
+  AND
+  OR
+}
+
+enum InPageOrderByType {
+  DATETIME
+  TRX_VALUE
+}
+
+enum InsightPaywallFilter {
+  ALL
+  NON_PAYWALLED_ONLY
+  PAYWALLED_ONLY
+}
+
+enum MetricDataType {
+  HISTOGRAM
+  TABLE
+  TIMESERIES
+}
+
+enum MostTweetType {
+  MOST_NEGATIVE
+  MOST_POSITIVE
+  MOST_REPLIES
+  MOST_RETWEETS
+}
+
+enum NftTradeLabelKey {
+  NFT_INFLUENCER
+}
+
+enum NftTradesOrderBy {
+  AMOUNT
+  DATETIME
+}
+
+enum OnlyProjectChannelsSpecEnum {
+  ALL
+  FUNDS
+  INFLUENCERS
+  PARTNERS
+  TEAM
+}
+
+enum OperatorName {
+  GREATER_THAN
+  GREATER_THAN_OR_EQUAL_TO
+  INSIDE_CHANNEL
+  INSIDE_CHANNEL_EXCLUSIVE
+  INSIDE_CHANNEL_INCLUSIVE
+  LESS_THAN
+  LESS_THAN_OR_EQUAL_TO
+  OUTSIDE_CHANNEL_EXCLUSIVE
+  OUTSIDE_CHANNEL_INCLUSIVE
+}
+
+enum OrderByEnum {
+  AUTHOR
+  COMMENTS
+  DATETIME
+  VOTES
+}
+
+enum PlansEnum {
+  BASIC
+  BUSINESS_MAX
+  BUSINESS_PRO
+  CUSTOM
+  FREE
+  MAX
+  PRO
+}
+
+enum ProductsEnum {
+  SANAPI
+  SANBASE
+}
+
+enum QuestionType {
+  BOOLEAN
+  MULTIPLE_SELECT
+  OPEN_NUMBER
+  OPEN_TEXT
+  SINGLE_SELECT
+}
+
+enum RecentTransactionsType {
+  ERC20
+  ETH
+}
+
+enum SelectorName {
+  ADDRESS
+  BASE_TTL
+  BLOCKCHAIN
+  BLOCKCHAIN_ADDRESS
+  CONTRACT_ADDRESS
+  ECOSYSTEM
+  ECOSYSTEMS
+  FOUNDERS
+  HOLDERS_COUNT
+  IGNORED_SLUGS
+  LABEL
+  LABEL_FQN
+  LABEL_FQNS
+  LABELS
+  MARKET_SEGMENTS
+  MAX_TTL_OFFSET
+  ONLY_PROJECT_CHANNELS
+  ONLY_PROJECT_CHANNELS_SPEC
+  ORGANIZATION
+  ORGANIZATIONS
+  OWNER
+  OWNERS
+  SLUG
+  SLUGS
+  SOURCE
+  TEXT
+  TOKEN_ID
+  WATCHLIST_ID
+  WATCHLIST_SLUG
+}
+
+enum SignalDataType {
+  TIMESERIES
+}
+
+enum SortDirection {
+  ASC
+  DESC
+}
+
+enum SubscriptionType {
+  BURNING_NFT
+  BURNING_REGULAR
+  FIAT
+  LIQUIDITY
+  SANR_POINTS_NFT
+}
+
+enum TableConfigurationTypeEnum {
+  BLOCKCHAIN_ADDRESS
+  PROJECT
+}
+
+enum TagEnum {
+  ALERT
+  FOLLOWED
+  INSIGHT
+  OWN
+  PULSE
+  SANFAM
+}
+
+"""
+Granularity of a major-topics batch.
+"""
+enum TopicGranularity {
+  DAY
+  WEEK
+}
+
+enum TransactionType {
+  ALL
+  IN
+  OUT
+}
+
+enum TransfersSummaryOrderBy {
+  TRANSACTION_VOLUME
+  TRANSFERS_COUNT
+}
+
+enum TrendingStoriesSource {
+  TELEGRAM
+  TWITTER_CRYPTO
+}
+
+enum TrendingWordTypeFilter {
+  ALL
+  NON_PROJECT
+  PROJECT
+}
+
+enum TrendingWordsSource {
+  ALL
+  REDDIT
+  TELEGRAM
+  TWITTER_CRYPTO
+}
+
+enum TypeFilter {
+  ALERT
+  ALL
+  INSIGHT
+  PULSE
+}
+
+"""
+Shows what is the access level of the user for a given flag.
+Access levels can be:
+  - Early Access - ALPHA and BETA
+  - Standard Access - RELEASED. Default for everyone
+
+When a user has early access set (for metrics, for features, etc.) the user
+can access that metric/feature before it is released for everyone.
+The access level by default is RELEASED. It can be changed only manually by a
+Santiment Administrator.
+"""
+enum UserAccessLevel {
+  ALPHA
+  BETA
+  RELEASED
+}
+
+enum UserOnboardingBehaviourAnalysisAnswer {
+  AWARE_BUT_UNUSED
+  NO
+  NOT_SURE
+  YES
+}
+
+enum UserOnboardingGoal {
+  BUILD_ANALYSIS
+  CATCH_TRENDS
+  MAKE_BETTER_TRADE_ENTRIES
+  UNDERSTAND_WHATS_GOING_ON
+}
+
+enum UserOnboardingTitle {
+  CONTENT_MAKER
+  CRYPTO_TRADER
+  NEW_IN_CRYPTO
+  RESEARCHER
+}
+
+enum UserOnboardingUsedTool {
+  NEWS_FEEDS
+  NONE_OF_THE_ABOVE
+  ON_CHAIN_ANALYTICS
+  PRICE_CHARTS
+  SCREENERS
+  SOCIAL_SIGNALS
+}
+
+enum UserRole {
+  SAN_FAMILY
+  SAN_TEAM
+}
+
+enum WatchlistTypeEnum {
+  BLOCKCHAIN_ADDRESS
+  PROJECT
+}
+
+input AddressSelector {
+  address: String!
+  transactionType: TransactionType
+}
+
+input AddressSelectorInputObject {
+  address: String!
+  infrastructure: String!
+}
+
+input AggregatedTimeseriesDataSelectorInputObject {
+  holdersCount: Int
+  label: String
+  labels: [String]
+  owner: String
+  owners: [String]
+  source: String
+}
+
+input BaseProjectsInputObject {
+  slugs: [String]
+  watchlistId: Int
+  watchlistSlug: String
+}
+
+input BlockchainAddressInputObject {
+  address: String
+  infrastructure: String
+  labels: [String]
+  notes: String
+}
+
+input BlockchainAddressSelectorInputObject {
+  address: binary_blockchain_address
+  id: ID
+  infrastructure: String
+}
+
+input CachingParamsInputObject {
+  baseTtl: Int
+  maxTtlOffset: Int
+}
+
+input ChatContextInput {
+  asset: String
+  dashboardId: String
+  metrics: [String]
+}
+
+input CursorInput {
+  datetime: DateTime!
+  order: DirectionType
+  type: CursorType!
+}
+
+input CursorInputNoOrder {
+  datetime: DateTime!
+  type: CursorType!
+}
+
+input DashboardGlobalParameterValue {
+  boolean: Boolean
+  float: Float
+  floatList: [Float]
+  integer: Int
+  integerList: [Int]
+  string: String
+  stringList: [String]
+}
+
+input EntityFilter {
+  insight: InsightEntityFilter
+  metrics: [String]
+  publicStatus: EntityPublicStatus
+  slugs: [String]
+}
+
+input HistoricalBalanceSelector {
+  contract: String
+  currency: String
+  decimals: Int
+  infrastructure: String
+  issuer: String
+  slug: String
+}
+
+input InputListItem {
+  blockchainAddress: BlockchainAddressInputObject
+  projectId: Int
+  slug: String
+}
+
+input InsightEntityFilter {
+  categories: [String]
+  paywall: InsightPaywallFilter
+  tags: [String]
+}
+
+"""
+A menu item is defined by the id of an existing entity.
+Exactly one of the entities must be set.
+"""
+input MenuItemEntity {
+  dashboardId: Int
+  menuId: Int
+  queryId: Int
+}
+
+input MetricTargetSelectorInputObject {
+  address: String
+  blockchain: String
+  blockchainAddress: BlockchainAddressSelectorInputObject
+  contractAddress: String
+  ecosystems: [String]
+  founders: [String]
+  holdersCount: Int
+  ignoredSlugs: [String]
+  label: String
+  labelFqn: String
+  labelFqns: [String]
+  labels: [String]
+  marketSegments: [String]
+  onlyProjectChannels: String
+  onlyProjectChannelsSpec: OnlyProjectChannelsSpecEnum
+  organization: String
+  organizations: [String]
+  owner: String
+  owners: [String]
+  slug: String
+  slugs: [String]
+  source: String
+  text: String
+  watchlistId: Int
+  watchlistSlug: String
+}
+
+input NftContractInputObject {
+  address: String!
+  infrastructure: String
+}
+
+input ProjectChartInputObject {
+  anomalies: [String]
+  description: String
+  drawings: json
+  isPublic: Boolean
+  metrics: [String]
+  metricsJson: json
+  options: json
+  postId: Int
+  projectId: Int
+  queries: json
+  title: String
+}
+
+input ProjectFilterInputObject {
+  aggregation: Aggregation
+  args: json
+  dynamicFrom: interval_or_now
+  dynamicTo: interval_or_now
+  from: DateTime
+  metric: String
+  name: String
+  operator: OperatorName
+  threshold: Float
+  to: DateTime
+}
+
+input ProjectOrderInputObject {
+  aggregation: Aggregation
+  direction: DirectionType!
+  from: DateTime!
+  metric: String!
+  to: DateTime!
+}
+
+input ProjectPaginationInputObject {
+  page: Int!
+  pageSize: Int!
+}
+
+input ProjectsSelectorInputObject {
+  baseProjects: [BaseProjectsInputObject]
+  filters: [ProjectFilterInputObject]
+  filtersCombinator: FiltersCombinator
+  orderBy: ProjectOrderInputObject
+  pagination: ProjectPaginationInputObject
+}
+
+"""
+Input object for a questionnaire answer params
+"""
+input QuestionnaireAnswerParamsInputObject {
+  answer: json!
+}
+
+"""
+Input object for a questionnaire params
+"""
+input QuestionnaireParamsInputObject {
+  description: String
+  endsAt: DateTime
+  name: String
+}
+
+"""
+Input object for a questionnaire questions params
+"""
+input QuestionnaireQuestionParamsInputObject {
+  answerOptions: json
+  hasExtraOpenTextAnswer: Boolean
+  order: Int
+  question: String
+  type: QuestionType
+}
+
+input SelectorSlugOrSlugInputObject {
+  slug: String
+  slugs: [String]
+}
+
+input SignalSelectorInputObject {
+  slug: String
+  slugs: [String]
+}
+
+input SignalTargetSelectorInputObject {
+  ignoredSlugs: [String]
+  marketSegments: [String]
+  slug: String
+  slugs: [String]
+  watchlistId: Int
+  watchlistSlug: String
+}
+
+input TableConfigurationInputObject {
+  columns: json
+  description: String
+  isPublic: Boolean
+  pageSize: Int
+  title: String
+  type: TableConfigurationTypeEnum
+}
+
+input TimelineEventsFilterInput {
+  assets: [Int]
+  author: AuthorFilter
+  onlyNotSeen: Boolean
+  type: TypeFilter
+  watchlists: [Int]
+}
+
+input TimeseriesDataJsonFields {
+  close: String
+  datetime: String
+  high: String
+  low: String
+  open: String
+  value: String
+  valueOhlc: String
+}
+
+input TimeseriesDataPerSlugJsonFields {
+  data: String
+  datetime: String
+  slug: String
+  value: String
+}
+
+"""
+Control how the timeseries metric result is transformed before it is sent.
+By default the result is not transformed.
+The list of supported transform types is: none, cumulative_sum, z_score, moving_average, changes, consecutive_differences, percent_change, cumulative_percent_change
+"""
+input TimeseriesMetricTransformInputObject {
+  movingAverageBase: Int
+  type: String!
+}
+
+input UserOnboardingInputObject {
+  goal: UserOnboardingGoal
+  title: UserOnboardingTitle
+  usedTools: [UserOnboardingUsedTool]
+  usesBehaviourAnalysis: UserOnboardingBehaviourAnalysisAnswer
+}
+
+input UserSelectorInputObject {
+  email: String
+  id: ID
+  username: String
+}
+
+input UserSettingsInputObject {
+  alertNotifyEmail: Boolean
+  alertNotifyTelegram: Boolean
+  alertsPerDayLimit: json
+  favoriteMetrics: [String]
+  hasTelegramConnected: Boolean
+  hidePrivacyData: Boolean
+  isBetaMode: Boolean
+  isSubscribedBiweeklyReport: Boolean
+  isSubscribedCommentsEmails: Boolean
+  isSubscribedEduEmails: Boolean
+  isSubscribedLikesEmails: Boolean
+  isSubscribedMarketingEmails: Boolean
+  isSubscribedMetricUpdates: Boolean
+  isSubscribedMonthlyNewsletter: Boolean
+  isSubscribedWeeklyNewsletter: Boolean
+  pageSize: Int
+  sanbaseVersion: String
+  signalNotifyEmail: Boolean
+  signalNotifyTelegram: Boolean
+  signalsPerDayLimit: json
+  tableColumns: json
+  theme: String
+}
+
+input WatchlistSettingsInputObject {
+  jsonData: json
+  pageSize: Int
+  tableColumns: json
+  timeWindow: String
+}
+
+input WordSelectorInputObject {
+  word: String
+  words: [String]
+}
+
+type AcademyQuestionSuggestion {
+  question: String!
+  title: String!
+}
+
+"""
+A single Academy chunk returned by semantic search, without any LLM synthesis.
+"""
+type AcademySearchResult {
+  content: String
+  heading: String
+  similarity: Float
+  title: String
+  url: String
+}
+
+type AccessLevel {
+  api: Boolean!
+  sanbase: Boolean!
+  spreadsheet: Boolean!
+}
+
+type AccessRestriction {
+  availableSelectors: [SelectorName]
+  availableVersions: [MetricVersion]
+  canMutate: Boolean
+  defaultAggregation: Aggregation
+  docs: [DocsObject]
+  hardDeprecateAfter: DateTime
+  humanReadableName: String!
+  internalName: String!
+  isAccessible: Boolean!
+  isDeprecated: Boolean!
+  isRestricted: Boolean!
+  minInterval: String
+  name: String!
+  requiredSelectors: [[SelectorName]]
+  restrictedFrom: DateTime
+  restrictedTo: DateTime
+  stabilizationPeriod: interval
+  status: String
+  type: String!
+}
+
+type AccountBasedTransfer {
+  datetime: DateTime!
+  fromAddress: BlockchainAddressEphemeral
+  toAddress: BlockchainAddressEphemeral
+  trxHash: String!
+  trxValue: Float!
+}
+
+type ActiveWidget {
+  createdAt: DateTime!
+  description: String
+  imageLink: String
+  title: String!
+  updatedAt: DateTime!
+  videoLink: String
+}
+
+type Address {
+  address: String
+  isExchange: Boolean
+  labels: [Label]
+}
+
+type AddressBalanceChange {
+  address: String!
+  balanceChangeAmount: Float!
+  balanceChangePercent: Float!
+  balanceEnd: Float!
+  balanceStart: Float!
+}
+
+type AddressTransactionVolume {
+  address: String!
+  transactionVolumeInflow: Float!
+  transactionVolumeOutflow: Float!
+  transactionVolumeTotal: Float!
+}
+
+type AddressWatchlistSubtype {
+  id: Int
+  name: String
+  slug: String
+}
+
+type AlertHistoricalActivity {
+  data: json
+  payload: json
+  trigger: Trigger!
+  triggeredAt: DateTime!
+}
+
+type AlertHistoricalActivityPaginated {
+  activity: [AlertHistoricalActivity]
+  cursor: Cursor
+}
+
+type AlertStats {
+  alertTypes: [String]
+  count: Int
+  percentChange: Float
+  project: Project
+  slug: String
+}
+
+type AlertsStats {
+  data: [AlertStats]
+  totalFired: Int
+  totalFiredPercentChange: Float
+  totalFiredWeeklyAvg: Float
+}
+
+type AnnualDiscount {
+  expireAt: DateTime!
+  percentOff: Int!
+}
+
+type AnnualDiscountEligibility {
+  discount: AnnualDiscount
+  isEligible: Boolean!
+}
+
+type ApiCallData {
+  apiCallsCount: Int!
+  datetime: DateTime!
+}
+
+type ApiMetricDistributionPerUser {
+  count: Int
+  metrics: [MetricsCount]
+  userId: ID
+}
+
+type AppNotification {
+  content: String
+  entityDescription: String
+  entityId: Int
+  entityName: String
+  entityType: String
+  id: Int!
+  insertedAt: DateTime!
+  isBroadcast: Boolean!
+  isRead: Boolean!
+  jsonData: json
+  readAt: DateTime
+  title: String
+  type: String!
+  url: String
+  user: PublicUser
+}
+
+type AppNotificationTypeStats {
+  type: String!
+  unreadCount: Int!
+}
+
+type AppNotificationsPaginated {
+  availableNotificationTypes: [String]
+  cursor: Cursor
+  notifications: [AppNotification]
+  stats: [AppNotificationTypeStats]
+}
+
+"""
+An asset creation event with all relevant data.
+"""
+type AssetChangelogEvent {
+  asset: AssetInfo!
+  eventTimestamp: DateTime!
+}
+
+"""
+An asset hiding event with hiding reason.
+"""
+type AssetHidingEvent {
+  asset: AssetInfo!
+  eventTimestamp: DateTime!
+  hidingReason: String
+}
+
+"""
+Asset information including name, ticker, slug, and other details.
+"""
+type AssetInfo {
+  description: String
+  link: String
+  logoUrl: String
+  name: String!
+  slug: String!
+  ticker: String
+}
+
+"""
+An assets-only changelog entry for a specific date.
+"""
+type AssetsChangelogDateEntry {
+  createdAssets: [AssetChangelogEvent]
+  date: Date!
+  hiddenAssets: [AssetHidingEvent]
+}
+
+"""
+Result for assets changelog query with pagination.
+"""
+type AssetsChangelogResult {
+  entries: [AssetsChangelogDateEntry]
+  pagination: ChangelogPagination!
+}
+
+type AuthSession {
+  client: String!
+  createdAt: DateTime!
+  expiresAt: DateTime!
+  hasExpired: Boolean!
+  isCurrent: Boolean!
+  jti: String!
+  lastActiveAt: DateTime!
+  platform: String!
+  type: String!
+}
+
+type BlockchainAddressDbStored {
+  address: binary_blockchain_address!
+  balance(selector: HistoricalBalanceSelector!): Float
+  balanceChange(from: DateTime!, selector: HistoricalBalanceSelector!, to: DateTime!): AddressBalanceChange
+  balanceDominance(selector: HistoricalBalanceSelector!): Float
+  commentsCount: Int
+  id: Int!
+  infrastructure: String
+  labels: [BlockchainAddressLabel]
+  notes: String
+}
+
+"""
+Represents a blockchain address that is not stored in the postgres database.
+Only data that is available in Clickhouse can be fetched. This type is returned
+as the result of the functions that fetch their data from Clickhouse. This type
+is not used for representing data stored in postgres and by extend it does not
+represent the data in the watchlists, the blockchain address user pairs, etc.
+For these types see the `blockchain_address_db_stored` type.
+"""
+type BlockchainAddressEphemeral {
+  address: binary_blockchain_address!
+  balance(selector: HistoricalBalanceSelector!): Float
+  balanceChange(from: DateTime!, selector: HistoricalBalanceSelector!, to: DateTime!): AddressBalanceChange
+  balanceDominance(selector: HistoricalBalanceSelector!): Float
+  currentUserAddressDetails: CurrentUserAddressDetails
+  infrastructure: String!
+  isExchange: Boolean
+  labels: [BlockchainAddressLabel]
+  notes: String
+}
+
+type BlockchainAddressLabel {
+  humanReadableName: String
+  metadata: json
+  name: String
+  notes: String
+  origin: String
+}
+
+type BlockchainAddressLabelChange {
+  address: BlockchainAddressEphemeral!
+  datetime: DateTime!
+  label: String!
+  sign: Int!
+}
+
+type BlockchainAddressUserPair {
+  blockchainAddress: BlockchainAddressDbStored
+  id: Int
+  labels: [BlockchainAddressLabel]
+  notes: String
+  user: PublicUser
+}
+
+type BlockchainMetadata {
+  blockchain: String!
+  createdOn: DateTime
+  hasBalanceMetrics: Boolean
+  hasExchangeMetrics: Boolean
+  hasExchangeTopHoldersMetrics: Boolean
+  hasLabelMetrics: Boolean
+  hasMinersMetrics: Boolean
+  hasOnchainFinancialMetrics: Boolean
+  hasPureOnchainMetrics: Boolean
+  hasTopHoldersMetrics: Boolean
+  infrastructure: String!
+  slug: String!
+}
+
+type BrokenData {
+  actionsToFix: String!
+  from: DateTime!
+  notes: String!
+  to: DateTime!
+  what: String!
+  why: String!
+}
+
+"""
+Pagination information for changelog queries.
+"""
+type ChangelogPagination {
+  currentPage: Int
+  hasMore: Boolean!
+  totalDates: Int
+  totalPages: Int
+}
+
+type ChartConfiguration {
+  anomalies: [String]
+  chartEvents: [Post]
+  commentsCount: Int
+  description: String
+  drawings: json
+  id: Int!
+  insertedAt: DateTime
+  isFeatured: Boolean
+  isHidden: Boolean!
+  isPublic: Boolean!
+  metrics: [String]
+  metricsJson: json
+  options: json
+  post: Post
+  project: Project
+  queries: json
+  title: String
+  updatedAt: DateTime
+  user: PublicUser!
+  views: Int
+  votedAt: DateTime
+  votes: Vote
+}
+
+type Chat {
+  chatMessages: [ChatMessage]
+  id: ID!
+  insertedAt: DateTime!
+  latestMessage: ChatMessage
+  messagesCount: Int
+  title: String!
+  type: ChatType!
+  updatedAt: DateTime!
+  user: PublicUser
+}
+
+type ChatMessage {
+  chat: Chat
+  content: String!
+  context: json
+  feedbackType: ChatMessageFeedbackType
+  id: ID!
+  insertedAt: DateTime!
+  role: ChatMessageRole!
+  sources: json
+  suggestions: json
+  updatedAt: DateTime!
+}
+
+type ChatSummary {
+  id: ID!
+  insertedAt: DateTime!
+  latestMessage: ChatMessage
+  messagesCount: Int
+  title: String!
+  type: ChatType!
+  updatedAt: DateTime!
+}
+
+"""
+Information about the columns in the Clickhouse database
+"""
+type ClickhouseDatabaseColumnMetadata {
+  isInPartitionKey: Boolean!
+  isInPrimaryKey: Boolean!
+  isInSortingKey: Boolean!
+  name: String!
+  table: String!
+  type: String!
+}
+
+"""
+Information about the functions in the Clickhouse database
+"""
+type ClickhouseDatabaseFunctionMetadata {
+  name: String!
+  origin: String!
+}
+
+"""
+Information about the Clickhouse database. It includes information
+about the columns, tables and functions. This information can be used
+for displaying info to user and also in the autocomplete implementation
+"""
+type ClickhouseDatabaseMetadata {
+  columns: [ClickhouseDatabaseColumnMetadata]
+  functions: [ClickhouseDatabaseFunctionMetadata]
+  tables: [ClickhouseDatabaseTableMetadata]
+}
+
+"""
+Information about the tables in the Clickhouse database
+"""
+type ClickhouseDatabaseTableMetadata {
+  engine: String!
+  name: String!
+  partitionKey: String!
+  primaryKey: String!
+  sortingKey: String!
+}
+
+type CombinedAddressTransactionVolumeOverTime {
+  datetime: DateTime!
+  transactionVolumeInflow: Float!
+  transactionVolumeOutflow: Float!
+  transactionVolumeTotal: Float!
+}
+
+type CombinedProjectsStats {
+  datetime: DateTime!
+  marketcap: Float
+  marketcapUsd: Float
+  volume: Float
+  volumeUsd: Float
+}
+
+type Comment {
+  blockchainAddressId: Int!
+  chartConfigurationId: Int!
+  content: SanitizedHtmlSubsetString!
+  dashboardId: Int!
+  editedAt: DateTime
+  id: Int!
+  insertedAt: DateTime!
+  insightId: Int!
+  parentId: Int
+  rootParentId: Int
+  subcommentsCount: Int
+  timelineEventId: Int!
+  user: PublicUser!
+  watchlistId: Int!
+}
+
+type CommentsFeedItem {
+  blockchainAddress: BlockchainAddressDbStored
+  chartConfiguration: ChartConfiguration
+  content: SanitizedHtmlSubsetString!
+  dashboard: Dashboard
+  editedAt: DateTime
+  id: Int!
+  insertedAt: DateTime!
+  insight: Post
+  parentId: Int
+  rootParentId: Int
+  subcommentsCount: Int
+  timelineEvent: TimelineEvent
+  user: PublicUser!
+}
+
+type ContractAddress {
+  address: String!
+  decimals: Int
+  description: String
+  insertedAt: DateTime
+  label: String
+  updatedAt: DateTime
+}
+
+type Coupon {
+  amountOff: Float
+  id: String
+  isValid: Boolean
+  name: String
+  percentOff: Float
+}
+
+type CurrencyAmount {
+  amount: Decimal
+  currencyCode: String
+}
+
+type CurrentUserAddressDetails {
+  labels: [Label]!
+  notes: String
+  watchlists: [AddressWatchlistSubtype]
+}
+
+type Cursor {
+  after: DateTime
+  before: DateTime
+}
+
+"""
+The Dashboard type defines the Queries 2.0 dashboard -- it holds the static data
+(name, description, public status, owner, etc.), and the list of queries that hold the
+actual SQL Query and parameters. The result of the execution of the
+SQL query is not part of the dashboard definition.
+
+Some of the fields are virtual (views), or computed on-the-fly and not stored
+in the dashboard itself -- the comments, votes, if the dashboard is
+featured.
+
+The Dashboard :parameters field is used to define global parameters that can override
+the query's own parameters. The interaction with the global parameter happens through the
+putDashboardGlobalParameter and putDashboardGlobalParameterOverride mutations.
+"""
+type Dashboard {
+  commentsCount: Int
+  description: String
+  id: Int!
+  imageWidgets: [ImageWidget]
+  insertedAt: DateTime
+  isPublic: Boolean!
+  name: String!
+  parameters: json
+  queries: [SqlQuery]
+  settings: json
+  textWidgets: [TextWidget]
+  updatedAt: DateTime
+  user: PublicUser!
+  views: Int
+  votedAt: DateTime
+  votes: Vote
+}
+
+type DashboardCachedExecutions {
+  queries: [SqlQueryExecutionResult]
+}
+
+type DashboardForLists {
+  commentsCount: Int
+  description: String
+  id: Int!
+  insertedAt: DateTime
+  isPublic: Boolean!
+  name: String!
+  parameters: json
+  settings: json
+  updatedAt: DateTime
+  user: PublicUser!
+  views: Int
+  votedAt: DateTime
+  votes: Vote
+}
+
+type DashboardImageWidgetTuple {
+  dashboard: Dashboard!
+  imageWidget: ImageWidget!
+}
+
+type DashboardQueryMapping {
+  dashboard: Dashboard!
+  id: String!
+  query: SqlQuery!
+  settings: json
+}
+
+type DashboardTextWidgetTuple {
+  dashboard: Dashboard!
+  textWidget: TextWidget!
+}
+
+type DatetimeRangeFloatValue {
+  range: [DateTime]
+  value: Float
+}
+
+type DatetimeRangeFloatValueList {
+  data: [DatetimeRangeFloatValue]
+}
+
+type DocsObject {
+  link: String!
+}
+
+type Ecosystem {
+  aggregatedTimeseriesData(aggregation: Aggregation, from: DateTime!, metric: String!, to: DateTime!): Float!
+  name: String!
+  projects: [Project]
+  timeseriesData(aggregation: Aggregation, from: DateTime!, interval: interval!, metric: String!, to: DateTime!, transform: TimeseriesMetricTransformInputObject): [EcosystemMetricData]
+}
+
+type EcosystemMetricData {
+  datetime: DateTime!
+  value: Float!
+}
+
+type EmailLoginRequest {
+  firstLogin: Boolean
+  success: Boolean!
+}
+
+type EntitiesStats {
+  addressWatchlistsCreated: Int
+  alertsCreated: Int
+  chartConfigurationsCreated: Int
+  dashboardsCreated: Int
+  insightsCreated: Int
+  projectWatchlistsCreated: Int
+  queriesCreated: Int
+  screenersCreated: Int
+}
+
+type EntityStats {
+  currentPage: Int!
+  currentPageSize: Int!
+  totalEntitiesCount: Int!
+  totalPagesCount: Int!
+}
+
+type Eth2StakingPoolsValidatorsCountOverTime {
+  datetime: DateTime
+  value: [StakingPoolIntegerValuation]
+}
+
+type Eth2StakingPoolsValidatorsCountOverTimeList {
+  data: [Eth2StakingPoolsValidatorsCountOverTime]
+}
+
+"""
+A type describing an Ethereum address. Beside the address itself it returns
+the SAN balance of that address.
+"""
+type EthAccount {
+  address: String!
+  sanBalance: Float!
+}
+
+type EthAddress {
+  address: String!
+  balance: Float
+}
+
+type EthSpentData {
+  datetime: DateTime!
+  ethSpent: Float
+}
+
+type FeesDistribution {
+  address: String
+  fees: Float!
+  project: Project
+  slug: String
+  ticker: String
+}
+
+type FloatList {
+  data: [Float]
+}
+
+type FloatRangeFloatValue {
+  range: [Float]
+  value: Float
+}
+
+type FloatRangeFloatValueList {
+  data: [FloatRangeFloatValue]
+}
+
+type FollowerData {
+  count: Int!
+  users: [PublicUser]!
+}
+
+type FollowerData2 {
+  count: Int!
+  users: [UserFollower]!
+}
+
+type Founder {
+  name: String!
+  project: Project
+}
+
+type GasUsed {
+  datetime: DateTime!
+  gasUsed: Float
+}
+
+type HistogramData {
+  labels: [String]
+  values: ValueList
+}
+
+type HistoricalBalance {
+  balance: Float
+  datetime: DateTime!
+}
+
+"""
+Entry point for Hyperliquid BBO (best bid / best offer) data.
+
+Use `timeseriesData` to fetch a bucketed BBO timeseries for a given slug
+and `availableProjects` to list projects backed by a Hyperliquid source
+mapping.
+"""
+type HyperliquidBboData {
+  availableProjects: [Project]
+  timeseriesData(cachingParams: CachingParamsInputObject, from: DateTime!, interval: interval!, slug: String!, to: DateTime!): [HyperliquidBboPoint]
+}
+
+"""
+A bucketed BBO (best bid / best offer) snapshot for a Hyperliquid asset.
+
+Within each interval bucket we return the values from the row with the
+largest `dt` (atomic snapshot — bid and ask always come from the same row).
+
+`mid_price` and `weighted_mid_price` are null whenever either side of the
+book is missing.
+"""
+type HyperliquidBboPoint {
+  askPrice: Float
+  askVolume: Float
+  bidPrice: Float
+  bidVolume: Float
+  datetime: DateTime!
+  midPrice: Float
+  weightedMidPrice: Float
+}
+
+type Ico {
+  capCurrency: String
+  comments: String
+  contractAbi: String
+  contractBlockNumber: Int
+  endDate: Date
+  fundsRaised: [CurrencyAmount]
+  fundsRaisedBtcIcoEndPrice: Float
+  fundsRaisedEthIcoEndPrice: Float
+  fundsRaisedUsdIcoEndPrice: Float
+  id: ID!
+  maximalCapAmount: Decimal
+  minimalCapAmount: Decimal
+  startDate: Date
+  tokenBtcIcoPrice: Decimal
+  tokenEthIcoPrice: Decimal
+  tokenUsdIcoPrice: Decimal
+  tokensIssuedAtIco: Decimal
+  tokensSoldAtIco: Decimal
+}
+
+type ImageData {
+  contentHash: String
+  error: String
+  fileName: String
+  hashAlgorithm: String
+  imageUrl: String
+  imageUrlW1200: String
+  imageUrlW2000: String
+  imageUrlW400: String
+  imageUrlW800: String
+}
+
+"""
+A widget that is part of a dashboard. It represents an image by its URL and alt text.
+Images can be uploaded via the uploadImage GraphQL mutation
+"""
+type ImageWidget {
+  alt: String
+  id: String!
+  insertedAt: DateTime!
+  updatedAt: DateTime!
+  url: String!
+}
+
+type InsightCategory {
+  description: String
+  name: String!
+}
+
+type InsightCategoryWithCount {
+  description: String
+  insightsCount: Int!
+  name: String!
+}
+
+type InsightsCount {
+  draftCount: Int
+  paywallCount: Int
+  pulseCount: Int
+  totalCount: Int
+}
+
+type Label {
+  metadata: json
+  name: String
+  origin: String
+}
+
+type LabelFqn {
+  displayName: String!
+  labelFqn: String!
+  owner: String!
+  version: String!
+}
+
+type ListItem {
+  blockchainAddress: BlockchainAddressEphemeral
+  project: Project
+}
+
+type Login {
+  accessToken: String!
+  refreshToken: String!
+  token: String!
+  user: User!
+}
+
+type Logout {
+  success: Boolean!
+}
+
+type MajorTopicDataset {
+  data: [Float!]!
+  description: String!
+  isCryptoRelevant: Boolean!
+  label: String!
+  topWords: String!
+}
+
+type MajorTopicsBatch {
+  datasets: [MajorTopicDataset!]!
+  granularity: TopicGranularity!
+  intervalEnd: Date!
+  intervalStart: Date!
+  labels: [String!]!
+  nextIntervalStart: Date
+  previousIntervalStart: Date
+  publishedAt: DateTime
+}
+
+type MarkAllNotificationsAsReadResult {
+  updatedCount: Int!
+}
+
+type MarketExchange {
+  assetsCount: Int!
+  exchange: String!
+  pairsCount: Int!
+}
+
+type MarketSegment {
+  count: Int
+  name: String
+}
+
+type Metric {
+  aggregatedTimeseriesData(aggregation: Aggregation, cachingParams: CachingParamsInputObject, from: DateTime!, onlyFinalizedData: Boolean, selector: MetricTargetSelectorInputObject, slug: String, to: DateTime!): Float
+  availableSince(selector: MetricTargetSelectorInputObject, slug: String): DateTime
+  brokenData(from: DateTime!, selector: MetricTargetSelectorInputObject, slug: String, to: DateTime!): [BrokenData]
+  executedClickhouseSql: [String]
+  histogramData(from: DateTime, interval: interval, limit: Int, selector: MetricTargetSelectorInputObject, slug: String, to: DateTime!): HistogramData
+  lastDatetimeComputedAt(selector: MetricTargetSelectorInputObject, slug: String): DateTime
+  metadata: MetricMetadata
+  tableData(from: DateTime!, selector: MetricTargetSelectorInputObject, slug: String, to: DateTime!): TableData
+  timeseriesData(aggregation: Aggregation, cachingParams: CachingParamsInputObject, from: DateTime!, includeIncompleteData: Boolean, interval: interval, onlyFinalizedData: Boolean, selector: MetricTargetSelectorInputObject, slug: String, to: DateTime!, transform: TimeseriesMetricTransformInputObject): [MetricData]
+  timeseriesDataComplexity(from: DateTime!, interval: interval, to: DateTime!): Int
+  timeseriesDataJson(aggregation: Aggregation, cachingParams: CachingParamsInputObject, fields: TimeseriesDataJsonFields, from: DateTime!, includeIncompleteData: Boolean, interval: interval, onlyFinalizedData: Boolean, selector: MetricTargetSelectorInputObject, slug: String, to: DateTime!, transform: TimeseriesMetricTransformInputObject): json
+  timeseriesDataPerSlug(aggregation: Aggregation, cachingParams: CachingParamsInputObject, from: DateTime!, includeIncompleteData: Boolean, interval: interval, onlyFinalizedData: Boolean, selector: MetricTargetSelectorInputObject, to: DateTime!, transform: TimeseriesMetricTransformInputObject): [MetricDataPerSlug]
+  timeseriesDataPerSlugJson(aggregation: Aggregation, cachingParams: CachingParamsInputObject, fields: TimeseriesDataPerSlugJsonFields, from: DateTime!, includeIncompleteData: Boolean, interval: interval, onlyFinalizedData: Boolean, selector: MetricTargetSelectorInputObject, to: DateTime!, transform: TimeseriesMetricTransformInputObject): json
+}
+
+type MetricCategoriesAndMetrics {
+  categories: [String]
+  metrics: [MetricDisplayOrder]
+}
+
+"""
+A metric creation/update event with all relevant data.
+"""
+type MetricChangelogEvent {
+  eventTimestamp: DateTime!
+  metric: MetricInfo!
+}
+
+type MetricData {
+  datetime: DateTime!
+  value: Float
+  valueOhlc: OhlcData
+}
+
+type MetricDataPerSlug {
+  data: [SlugFloatValuePair]
+  datetime: DateTime!
+}
+
+"""
+A metric deprecation event with deprecation note.
+"""
+type MetricDeprecationEvent {
+  deprecationNote: String
+  eventTimestamp: DateTime!
+  metric: MetricInfo!
+}
+
+type MetricDisplayOrder {
+  args: json
+  categoryName: String
+  chartStyle: String
+  description: String
+  displayOrder: Int
+  groupName: String
+  insertedAt: DateTime
+  isNew: Boolean
+  metric: String!
+  shortLabel: String
+  source: String
+  type: String
+  uiHumanReadableName: String
+  uiKey: String
+  unit: String
+  updatedAt: DateTime
+}
+
+"""
+Documentation link for a metric.
+"""
+type MetricDoc {
+  link: String!
+}
+
+type MetricDocumentation {
+  link: String!
+}
+
+"""
+Metric information including name, identifier, and documentation links.
+"""
+type MetricInfo {
+  docs: [MetricDoc]
+  humanReadableName: String
+  metric: String!
+}
+
+type MetricMetadata {
+  availableAggregations: [Aggregation]
+  availableFounders(slug: String): [Founder]
+  availableLabelFqns(slug: String): [String]
+  availableProjects: [Project]
+  availableSelectors: [SelectorName]
+  availableSlugs: [String]
+  availableVersions: [MetricVersion]
+  canMutate: Boolean
+  dataType: MetricDataType
+  defaultAggregation: Aggregation
+  docs: [MetricDocumentation]
+  hardDeprecateAfter: DateTime
+  hasIncompleteData: Boolean!
+  humanReadableName: String!
+  internalMetric: String!
+  isAccessible: Boolean
+  isDeprecated: Boolean!
+  isLabelFqnMetric: Boolean!
+  isRestricted: Boolean
+  isTimebound: Boolean
+  metric: String!
+  minInterval: String
+  requiredSelectors: [[SelectorName]]
+  restrictedFrom: DateTime
+  restrictedTo: DateTime
+  stabilizationPeriod: interval
+  status: String
+}
+
+"""
+Check the metric_metadata type for description
+"""
+type MetricMetadataSubset {
+  docs: [MetricDocumentation]
+  metric: String!
+}
+
+type MetricShortDescription {
+  name: String!
+}
+
+type MetricSpikeExplanation {
+  explanation: String!
+  spikeEndDatetime: DateTime!
+  spikeStartDatetime: DateTime!
+}
+
+type MetricSpikeExplanationsCount {
+  count: Int!
+  datetime: DateTime!
+}
+
+type MetricSpikeExplanationsMetadata {
+  availableMetrics(slug: String): [String]!
+  availableProjects(metric: String): [Project]!
+  count: Int!
+}
+
+type MetricVersion {
+  version: String
+}
+
+"""
+A metrics-only changelog entry for a specific date.
+"""
+type MetricsChangelogDateEntry {
+  createdMetrics: [MetricChangelogEvent]
+  date: Date!
+  deprecatedMetrics: [MetricDeprecationEvent]
+}
+
+"""
+Result for metrics changelog query with pagination.
+"""
+type MetricsChangelogResult {
+  entries: [MetricsChangelogDateEntry]
+  pagination: ChangelogPagination!
+}
+
+type MetricsCount {
+  count: Int
+  metric: String
+}
+
+type MinersBalance {
+  balance: Float
+  datetime: DateTime!
+}
+
+type MonitoredTwitterHandle {
+  comment: String
+  handle: String!
+  insertedAt: DateTime!
+  notes: String
+  status: String
+  updatedAt: DateTime!
+}
+
+type MostRecentEntityResult {
+  data: [SingleEntityResult]
+  stats: EntityStats
+}
+
+type MostSimilarEntityResult {
+  data: [SingleEntityResult]
+  stats: EntityStats
+}
+
+type MostUsedEntityResult {
+  data: [SingleEntityResult]
+  stats: EntityStats
+}
+
+type MostVotedEntityResult {
+  data: [SingleEntityResult]
+  stats: EntityStats
+}
+
+type Nft {
+  contractAddress: String
+  name: String
+}
+
+type NftContractData {
+  nftCollection: String
+}
+
+type NftData {
+  address: String
+  nonValidTokenIds: [Int]
+  tokenIds: [Int]
+}
+
+type NftQuantity {
+  quantity: Float!
+  tokenId: String!
+}
+
+type NftTrade {
+  amount: Float
+  currencyProject: Project
+  datetime: DateTime
+  fromAddress: NftTrader
+  marketplace: String
+  nft: Nft
+  priceUsd: Float
+  quantities: [NftQuantity]
+  quantity: Float
+  toAddress: NftTrader
+  trxHash: String
+}
+
+type NftTrader {
+  address: String
+  labelKey: NftTradeLabelKey
+}
+
+type NotificationTypeSetting {
+  isEnabled: Boolean!
+  type: String!
+}
+
+type Ohlc {
+  closePriceUsd: Float
+  datetime: DateTime!
+  highPriceUsd: Float
+  lowPriceUsd: Float
+  openPriceUsd: Float
+}
+
+type OhlcData {
+  close: Float
+  high: Float
+  low: Float
+  open: Float
+}
+
+type PaymentInstrument {
+  brand: String!
+  dynamicLast4: String
+  expMonth: Int!
+  expYear: Int!
+  funding: String
+  last4: String!
+}
+
+type PaymentIntent {
+  clientSecret: String!
+  id: String!
+  status: String!
+}
+
+type Payments {
+  amount: Int
+  createdAt: DateTime
+  description: String
+  receiptUrl: String
+  status: String
+}
+
+type Plan {
+  amount: Int
+  id: ID
+  interval: interval
+  isDeprecated: Boolean
+  isPrivate: Boolean
+  name: String
+  product: Product
+}
+
+type PopularSearchTerm {
+  createdAt: DateTime!
+  datetime: DateTime!
+  options: json
+  searchTerm: String!
+  selectorType: String!
+  title: String!
+  updatedAt: DateTime
+}
+
+type Post {
+  categories: [InsightCategory]
+  chartConfigurationForEvent: ChartConfiguration
+  chartEventDatetime: DateTime
+  commentsCount: Int
+  createdAt: DateTime!
+  id: Int!
+  images: [PostImageData]
+  insertedAt: DateTime!
+  isChartEvent: Boolean
+  isFeatured: Boolean
+  isHidden: Boolean!
+  isPaywallRequired: Boolean
+  isPulse: Boolean
+  metrics: [MetricShortDescription]
+  moderationComment: String
+  prediction: String
+  priceChartProject: Project
+  publishedAt: DateTime
+  pulseText: SanitizedHtmlSubsetString
+  readyState: String
+  relatedProjects: [Project]
+  shortDesc: SanitizedHtmlSubsetString
+  state: String
+  tags: [Tag]
+  text: SanitizedHtmlSubsetString
+  title: SanitizedStringNoTags!
+  updatedAt: DateTime!
+  user: PublicUser!
+  views: Int
+  votedAt: DateTime
+  votes: Vote
+}
+
+type PostImageData {
+  imageUrl: String!
+  imageUrlW1200: String
+  imageUrlW2000: String
+  imageUrlW400: String
+  imageUrlW800: String
+}
+
+type PppSettings {
+  country: String
+  isEligibleForPpp: Boolean!
+  percentOff: Int
+  plans: [Plan]
+}
+
+type PricePoint {
+  datetime: DateTime!
+  marketcap: Float
+  marketcapUsd: Float
+  priceBtc: Float
+  priceUsd: Float
+  volume: Float
+  volumeUsd: Float
+}
+
+type Product {
+  id: ID
+  name: String
+  plans: [Plan]
+}
+
+"""
+A type fully describing a project.
+"""
+type Project {
+  aggregatedTimeseriesData(aggregation: Aggregation, cachingParams: CachingParamsInputObject, errorOnDataFetchFail: Boolean, from: DateTime!, includeIncompleteData: Boolean, metric: String!, onlyFinalizedData: Boolean, selector: AggregatedTimeseriesDataSelectorInputObject, to: DateTime!): Float
+  availableFounders: [String]
+  availableHistogramMetrics: [String]
+  availableLabelFqns: [LabelFqn]
+  availableMetrics: [String]
+  availableMetricsExtended: [MetricMetadataSubset]
+  availableQueries: [String]
+  availableSignals: [String]
+  availableSupply: Decimal
+  availableTableMetrics: [String]
+  availableTimeseriesMetrics: [String]
+  averageDailyActiveAddresses(from: DateTime, to: DateTime): Float
+  averageDevActivity(days: Int): Float
+  averageGithubActivity(days: Int): Float
+  blogLink: String
+  bttLink: String
+  coinmarketcapId: String
+  contractAddresses: [ContractAddress]
+  darkLogoUrl: String
+  deployedOnEcosystem: Ecosystem
+  description: String
+  discordLink: String
+  ecosystems: [Ecosystem]
+  email: String
+  ethAddresses: [EthAddress]
+  ethBalance: Float
+  ethSpent(days: Int): Float
+  ethSpentOverTime(from: DateTime!, interval: interval, to: DateTime!): [EthSpentData]
+  ethTopTransactions(from: DateTime!, limit: Int, to: DateTime!, transactionType: TransactionType): [Transaction]
+  facebookLink: String
+  fundsRaisedBtcIcoEndPrice: Float
+  fundsRaisedEthIcoEndPrice: Float
+  fundsRaisedIcos: [CurrencyAmount]
+  fundsRaisedUsdIcoEndPrice: Float
+  githubLink: String
+  githubLinks: [String]
+  hiddenReason: String
+  hiddenSince: DateTime
+  icoPrice: Float
+  icos: [Ico]
+  id: ID!
+  info: ProjectInfo
+  infrastructure: String
+  initialIco: Ico
+  isHidden: Boolean!
+  isTrending: Boolean
+  linkedinLink: String
+  logoUrl: String
+  longDescription: String
+  mainContractAddress: String
+  marketSegment: String
+  marketSegments: [String]
+  marketcapUsd: Float
+  multichainProjectGroupKey: String
+  name: String!
+  percentChange1h: Decimal
+  percentChange24h: Decimal
+  percentChange7d: Decimal
+  priceBtc: Float
+  priceEth: Float
+  priceUsd: Float
+  rank: Int
+  redditLink: String
+  relatedPosts: [Post]
+  roiUsd: Decimal
+  slackLink: String
+  slug: String
+  socialVolumeQuery: String
+  sourceSlugMappings: [SourceSlugMapping]
+  symbol: String
+  tags: [ProjectTag]
+  teamTokenWallet: String
+  telegramChatId: Int
+  telegramChatName: String
+  telegramData: TelegramData
+  telegramLink: String
+  ticker: String
+  tokenAddress: String
+  tokenDecimals: Int
+  tokenTopTransactions(excludedAddresses: [String], from: DateTime!, limit: Int, to: DateTime!): [Transaction]
+  totalSupply: Decimal
+  tradedOnExchanges: [String]
+  tradedOnExchangesCount: Int
+  twitterData: TwitterData
+  twitterLink: String
+  usdBalance: Float
+  volumeChange24h: Float
+  volumeUsd: Float
+  websiteLink: String
+  whitepaperLink: String
+}
+
+type ProjectInfo {
+  full: String
+  summary: String
+}
+
+type ProjectStats {
+  marketcap: Float
+  marketcapPercent: Float
+  marketcapUsd: Float
+  slug: String
+  volume: Float
+  volumeUsd: Float
+}
+
+type ProjectTag {
+  name: String!
+  type: String
+}
+
+type ProjectsCount {
+  currencyProjectsCount: Int!
+  erc20ProjectsCount: Int!
+  projectsCount: Int!
+}
+
+type ProjectsObject {
+  projects: [Project]
+  stats: ProjectsObjectStats
+}
+
+type ProjectsObjectStats {
+  projectsCount: Int!
+}
+
+type Promoter {
+  currentBalance: Int
+  dashboardUrl: String
+  earningsBalance: Int
+  email: String
+  paidBalance: Int
+  promotions: [Promotion]
+}
+
+type Promotion {
+  cancellationsCount: Int
+  customersCount: Int
+  leadsCount: Int
+  promoCode: String
+  refId: String
+  referralLink: String
+  refundsCount: Int
+  refundsTotal: Int
+  salesCount: Int
+  salesTotal: Int
+  visitorsCount: Int
+}
+
+type PublicInsightsCount {
+  paywallCount: Int
+  pulseCount: Int
+  totalCount: Int
+}
+
+type PublicSubscriptionPlan {
+  planName: String
+  productName: String
+}
+
+"""
+A public-safe representation of a trigger. Same shape as :trigger but
+with private fields removed: no cooldown, is_hidden. The settings JSON
+has private keys (channel, template, extra_explanation) stripped out.
+"""
+type PublicTrigger {
+  description: String
+  iconUrl: String
+  id: Int!
+  insertedAt: DateTime
+  isActive: Boolean!
+  isFeatured: Boolean
+  isFrozen: Boolean!
+  isPublic: Boolean!
+  isRepeating: Boolean!
+  lastTriggeredDatetime: DateTime
+  settings: json!
+  tags: [Tag]
+  title: String!
+  updatedAt: DateTime
+}
+
+type PublicUser {
+  avatarUrl: String
+  chartConfigurations: [ChartConfiguration]
+  dashboards: [Dashboard]
+  description: String
+  email: String
+  entitiesStats: EntitiesStats
+  followers: FollowerData
+  following: FollowerData
+  id: ID!
+  insights(from: DateTime, isPaywallRequired: Boolean, isPulse: Boolean, page: Int, pageSize: Int, to: DateTime): [Post]
+  insightsCount: PublicInsightsCount
+  isModerator: Boolean
+  isSantimentTeamMember: Boolean
+  joinedAt: DateTime
+  lastSanbaseActivity: String
+  name: String
+  subscriptions: [PublicSubscriptionPlan]
+  triggers: [PublicTrigger]
+  twitterHandle: String
+  username: String
+  votesStats: VotesStats
+  watchlists(type: WatchlistTypeEnum): [UserList]
+  websiteUrl: String
+}
+
+type PublicUserTrigger {
+  trigger: PublicTrigger
+  user: PublicUser
+  userId: Int
+  views: Int
+  votedAt: DateTime
+  votes: Vote
+}
+
+type QueriesExecutionsInfo {
+  creditsAvailableMonth: Int!
+  creditsRemainingMonth: Int!
+  creditsSpentMonth: Int!
+  queriesExecutedDay: Int!
+  queriesExecutedDayLimit: Int!
+  queriesExecutedHour: Int!
+  queriesExecutedHourLimit: Int!
+  queriesExecutedMinute: Int!
+  queriesExecutedMinuteLimit: Int!
+  queriesExecutedMonth: Int!
+}
+
+type QueryCachedExecution {
+  insertedAt: DateTime!
+  isQueryHashMatching: Boolean!
+  result: SqlQueryExecutionResult
+  user: PublicUser!
+}
+
+type QueryHumanDescription {
+  description: String!
+  title: String!
+}
+
+type Questionnaire {
+  description: String
+  name: String!
+  questions: [QuestionnaireQuestion]
+  uuid: String!
+}
+
+type QuestionnaireAnswer {
+  answer: json!
+  question: QuestionnaireQuestion!
+  uuid: String!
+}
+
+type QuestionnaireQuestion {
+  answerOptions: json!
+  hasExtraOpenTextAnswer: Boolean!
+  order: Int!
+  question: String!
+  type: QuestionType!
+  uuid: String!
+}
+
+type QuestionnaireUserAnswer {
+  answer: json!
+  question: QuestionnaireQuestion!
+  uuid: String!
+}
+
+type RawSignal {
+  datetime: DateTime
+  isHidden: Boolean!
+  metadata: json
+  project: Project
+  signal: String!
+  slug: String
+  value: Float
+}
+
+type Report {
+  description: String
+  insertedAt: DateTime
+  isPro: Boolean!
+  name: String!
+  tags: [String]
+  url: String
+}
+
+type SanbaseNft {
+  hasNonValidNft: Boolean
+  hasValidNft: Boolean!
+  nftCount: Int!
+  nftData: [NftData]!
+  nonValidNftCount: Int!
+}
+
+type SeenEvent {
+  eventId: Int!
+  seenAt: DateTime!
+}
+
+type SetupIntent {
+  clientSecret: String!
+}
+
+type SharedAccessToken {
+  uuid: String!
+}
+
+type SheetsTemplate {
+  description: String
+  isPro: Boolean!
+  name: String!
+  url: String
+}
+
+type ShortUrl {
+  data: String
+  fullUrl: String
+  id: Int
+  shortUrl: String
+}
+
+type Signal {
+  aggregatedTimeseriesData(aggregation: Aggregation, from: DateTime!, selector: SignalSelectorInputObject, slug: String, to: DateTime!): Float
+  availableSince(selector: SignalSelectorInputObject, slug: String): DateTime
+  metadata: SignalMetadata
+  timeseriesData(aggregation: Aggregation, from: DateTime!, interval: interval, selector: SignalSelectorInputObject, slug: String, to: DateTime!): [SignalData]
+}
+
+type SignalData {
+  datetime: DateTime!
+  metadata: [json]
+  value: Float
+}
+
+type SignalMetadata {
+  availableAggregations: [Aggregation]
+  availableSlugs: [String]
+  dataType: SignalDataType
+  defaultAggregation: Aggregation
+  isAccessible: Boolean
+  isRestricted: Boolean
+  minInterval: String
+  restrictedFrom: DateTime
+  restrictedTo: DateTime
+  signal: String!
+}
+
+type SingleEntityResult {
+  addressWatchlist: UserList
+  chartConfiguration: ChartConfiguration
+  dashboard: Dashboard
+  insight: Post
+  projectWatchlist: UserList
+  query: SqlQuery
+  screener: UserList
+  userTrigger: PublicUserTrigger
+}
+
+type SlugBalance {
+  balance: Float!
+  balanceUsd: Float
+  slug: String!
+}
+
+type SlugFloatValuePair {
+  slug: String!
+  value: Float
+}
+
+type SlugTweetsObject {
+  slug: String!
+  tweets: [Tweet]
+}
+
+type SocialDocument {
+  documentId: String
+  documentUrl: String
+  screenName: String
+  source: String
+  text: String
+}
+
+type SocialVolume {
+  datetime: DateTime!
+  mentionsCount: Int
+}
+
+type SourceSlugMapping {
+  slug: String!
+  source: String!
+}
+
+"""
+A GraphQL type that represents an SQL Query.
+
+The SQL Query is an entity that encapsulates a Clickhouse SQL query, the
+query parameters and the query metadata (name, description, etc.).
+
+The query can be public or private. Public queries are visible to all users,
+while private queries are visible only to the user that created them.
+Queries can be executed and the result of their executions displayed.
+"""
+type SqlQuery {
+  dashboardQueryMappingId: String
+  description: String
+  id: Int!
+  insertedAt: DateTime!
+  isPublic: Boolean!
+  name: String
+  originId: Int
+  settings: json
+  sqlQueryParameters: json!
+  sqlQueryText: String!
+  updatedAt: DateTime!
+  user: PublicUser
+  uuid: String!
+  votedAt: DateTime
+  votes: Vote
+}
+
+"""
+The result of executing a raw Clickhouse SQL query.
+
+The field interpration is as follows:
+- columns: A list of column names returned by the query, in
+  the order specified by the query
+- columnTypes: A list of Clickhouse column types, in the
+  order specified by the query
+- rows: A list of lists, where each list is a row of the
+  result set.
+- clickhouseQueryId: A unique identifier for the query
+  execution, generated by the database during execution.
+  This can be used to get the details about the query execution.
+- summary: A JSON containing a subset of the query execution
+  details that are available at the time of the executions.
+  Not all execution details are available at this point. To get
+  all the execution details, provide the clickhouseQueryId to the
+  getQueryExecutionStats query.
+- queryStartTime: The time when the query started executing.
+- queryEndTime: The time when the query finished executing.
+"""
+type SqlQueryExecutionResult {
+  clickhouseQueryId: String!
+  columnTypes: [String]!
+  columns: [String]!
+  dashboardQueryMappingId: String
+  queryEndTime: DateTime!
+  queryId: Int
+  queryStartTime: DateTime!
+  rows: json!
+  summary: json!
+}
+
+"""
+Get memory/duration/credits/etc. details about an
+executed clickhouse query.
+
+Every computation generates a clickhouse_query_id that uniquly identifies that exact
+query run. It can be used to get the details about a
+query execution - how much memory it used, how long it run,
+how many credits were spent running this query, etc.
+"""
+type SqlQueryExecutionStats {
+  cpuTimeMicroseconds: Float!
+  creditsCost: Float!
+  insertedAt: DateTime!
+  memoryUsageGb: Float!
+  queryDurationMs: Float!
+  queryEndTime: DateTime!
+  queryId: Int
+  queryStartTime: DateTime!
+  readCompressedGb: Float!
+  readGb: Float!
+  readRows: Float!
+  resultGb: Float!
+  resultRows: Float!
+}
+
+type StakingPoolIntegerValuation {
+  stakingPool: String
+  valuation: Int
+}
+
+type StringAddressFloatValue {
+  address: String
+  balance: Float
+  labels: [String]
+  value: Float
+}
+
+type StringAddressFloatValueList {
+  data: [StringAddressFloatValue]
+}
+
+type StringAddressStringLabelFloatValue {
+  address: String
+  label: String
+  value: Float
+}
+
+type StringAddressStringLabelFloatValueList {
+  data: [StringAddressStringLabelFloatValue]
+}
+
+type StringLabelFloatValue {
+  label: String
+  value: Float
+}
+
+type StringLabelFloatValueList {
+  data: [StringLabelFloatValue]
+}
+
+type StringList {
+  data: [String]
+}
+
+type SubscriptionCancellation {
+  isScheduledForCancellation: Boolean
+  scheduledForCancellationAt: DateTime
+}
+
+type SubscriptionPlan {
+  cancelAtPeriodEnd: Boolean
+  currentPeriodEnd: DateTime
+  id: ID
+  paymentIntent: PaymentIntent
+  plan: Plan
+  status: BillingStatus
+  trialEnd: DateTime
+  type: SubscriptionType
+  user: User
+}
+
+type TableConfiguration {
+  columns: json
+  description: String
+  id: Int!
+  insertedAt: DateTime
+  isPublic: Boolean
+  pageSize: Int
+  title: String
+  type: TableConfigurationTypeEnum
+  updatedAt: DateTime
+  user: PublicUser!
+}
+
+type TableData {
+  columns: [String]
+  rows: [String]
+  values: [[Float]]
+}
+
+type Tag {
+  name: String!
+}
+
+type TelegramData {
+  datetime: DateTime!
+  membersCount: Int
+}
+
+"""
+A widget that can be added to dashboards. It represents text data and is static.
+"""
+type TextWidget {
+  body: String
+  description: String
+  id: String!
+  insertedAt: DateTime!
+  name: String
+  updatedAt: DateTime!
+}
+
+type TimelineEvent {
+  commentsCount: Int
+  data: json
+  eventType: String!
+  id: Int!
+  insertedAt: DateTime!
+  payload: json
+  post: Post
+  tags: [TagEnum]
+  trigger: Trigger
+  user: PublicUser!
+  userList: UserList
+  votes: [Upvote]
+}
+
+type TimelineEventsPaginated {
+  cursor: Cursor
+  events: [TimelineEvent]
+}
+
+type TopExchangeBalance {
+  balance: Float
+  balanceChange1d: Float
+  balanceChange30d: Float
+  balanceChange7d: Float
+  datetimeOfFirstTransfer: DateTime
+  daysSinceFirstTransfer: Int
+  label: String!
+  owner: String!
+}
+
+type TopHolders {
+  address: String
+  datetime: DateTime!
+  labels: [Label]
+  partOfTotal: Float
+  value: Float
+  valueUsd: Float
+}
+
+type TopHoldersPercentOfTotalSupply {
+  datetime: DateTime!
+  inExchanges: Float
+  inTopHoldersTotal: Float
+  outsideExchanges: Float
+}
+
+type Transaction {
+  datetime: DateTime!
+  fromAddress: Address
+  project: Project
+  slug: String
+  toAddress: Address
+  trxHash: String!
+  trxValue: Float!
+}
+
+type TransfersSummary {
+  address: String!
+  lastTransferDatetime: DateTime!
+  transactionVolume: Float!
+  transfersCount: Int!
+}
+
+type TrendingStories {
+  datetime: DateTime!
+  topStories: [TrendingStory]
+}
+
+type TrendingStory {
+  bearishRatio: Float
+  bullishRatio: Float
+  relatedTokens: [String]
+  score: Float!
+  searchText: String!
+  summary: String!
+  title: String!
+}
+
+type TrendingWordPosition {
+  datetime: DateTime!
+  position: Int
+}
+
+type TrendingWordSummary {
+  datetime: DateTime!
+  source: String!
+  summary: String!
+}
+
+type TrendingWords {
+  datetime: DateTime!
+  topWords: [WordWithContext]
+}
+
+type Trigger {
+  cooldown: String!
+  description: String
+  iconUrl: String
+  id: Int!
+  insertedAt: DateTime
+  isActive: Boolean!
+  isFeatured: Boolean
+  isFrozen: Boolean!
+  isHidden: Boolean!
+  isPublic: Boolean!
+  isRepeating: Boolean!
+  lastTriggeredDatetime: DateTime
+  settings: json!
+  tags: [Tag]
+  title: String!
+  updatedAt: DateTime
+}
+
+type Tweet {
+  datetime: DateTime!
+  repliesCount: Int
+  retweetsCount: Int
+  screenName: String!
+  sentimentNegative: Float
+  sentimentPositive: Float
+  text: String!
+  tweetId: String!
+}
+
+type TwitterData {
+  datetime: DateTime!
+  followersCount: Int
+}
+
+type UpcomingInvoice {
+  amountDue: Int!
+  periodEnd: DateTime!
+  periodStart: DateTime!
+}
+
+type Upvote {
+  userId: Int
+}
+
+type UsdValueAddressChange {
+  balanceChange: Float!
+  currentBalance: Float!
+  currentUsdValue: Float!
+  previousBalance: Float!
+  previousUsdValue: Float!
+  slug: String!
+  usdValueChange: Float!
+}
+
+type User {
+  apiCallsCount(authMethod: ApiCallAuthMethod, from: DateTime!, to: DateTime!): Int
+  apiCallsHistory(authMethod: ApiCallAuthMethod, from: DateTime!, interval: interval, to: DateTime!): [ApiCallData]
+  apikeys: [String]
+  areUserAffiliateDatailsSubmitted: Boolean
+  avatarUrl: String
+  chartConfigurations: [ChartConfiguration]
+  chats: [ChatSummary]
+  consentId: String
+  dashboards: [Dashboard]
+  description: String
+  email: String
+  entitiesStats: EntitiesStats
+  ethAccounts: [EthAccount]
+  featureAccessLevel: UserAccessLevel!
+  firstLogin: Boolean
+  followers: FollowerData
+  followers2: FollowerData2
+  following: FollowerData
+  following2: FollowerData2
+  id: ID!
+  insertedAt: DateTime!
+  insights(isPaywallRequired: Boolean, isPulse: Boolean, page: Int, pageSize: Int): [Post]
+  insightsCount: InsightsCount
+  isEligibleForApiTrial: Boolean
+  isEligibleForSanbaseTrial: Boolean
+  isModerator: Boolean
+  isSantimentTeamMember: Boolean
+  joinedAt: DateTime
+  marketingAccepted: Boolean
+  metricAccessLevel: UserAccessLevel!
+  name: String
+  notificationTypeSettings: [NotificationTypeSetting]
+  permissions: AccessLevel
+  primaryUser: PublicUser
+  primaryUserSanbaseSubscription: SubscriptionPlan
+  privacyPolicyAccepted: Boolean
+  promoCodes: [UserPromoCode]
+  queriesExecutionsInfo: QueriesExecutionsInfo
+  sanBalance: Float
+  sanCreditBalance: Float
+  sanbaseNft: SanbaseNft
+  secondaryUsers: [PublicUser]
+  settings: UserSettings
+  stripeCustomerId: String
+  subscriptions: [SubscriptionPlan]
+  triggers: [Trigger]
+  twitterHandle: String
+  updatedAt: DateTime!
+  userOnboarding: UserOnboarding
+  username: String
+  votesStats: VotesStats
+  watchlists(type: WatchlistTypeEnum): [UserList]
+  websiteUrl: String
+}
+
+type UserEvent {
+  createdAt: DateTime
+  eventName: String
+  metadata: json
+  userId: ID
+}
+
+type UserFollower {
+  followerId: ID!
+  isNotificationDisabled: Boolean
+  user: PublicUser
+  userId: ID!
+}
+
+type UserList {
+  color: ColorEnum
+  commentsCount: Int
+  description: String
+  function: json
+  historicalStats(from: DateTime!, interval: interval, to: DateTime!): [CombinedProjectsStats]
+  id: ID!
+  insertedAt: NaiveDateTime!
+  isFeatured: Boolean
+  isHidden: Boolean!
+  isMonitored: Boolean
+  isPublic: Boolean!
+  isScreener: Boolean!
+  listItems: [ListItem]
+  name: String!
+  settings: WatchlistSettings
+  slug: String
+  stats: WatchlistStats
+  tableConfiguration: TableConfiguration
+  type: WatchlistTypeEnum
+  updatedAt: NaiveDateTime!
+  user: PublicUser!
+  views: Int
+  votedAt: DateTime
+  votes: Vote
+}
+
+type UserOnboarding {
+  goal: UserOnboardingGoal
+  insertedAt: DateTime
+  title: UserOnboardingTitle
+  updatedAt: DateTime
+  usedTools: [UserOnboardingUsedTool]
+  usesBehaviourAnalysis: UserOnboardingBehaviourAnalysisAnswer
+}
+
+type UserPromoCode {
+  campaign: String
+  coupon: String
+  data: json
+  maxRedemptions: Int
+  percentOff: Int
+  redeemBy: DateTime
+  timesRedeemed: Int
+}
+
+type UserSettings {
+  alertNotifyEmail: Boolean
+  alertNotifyTelegram: Boolean
+  alertsPerDayLimit: json
+  alertsPerDayLimitLeft: json
+  canSelfResetApiRateLimits: Boolean
+  canSelfResetApiRateLimitsAt: DateTime
+  favoriteMetrics: [String]
+  hasTelegramConnected: Boolean
+  hidePrivacyData: Boolean
+  isBetaMode: Boolean
+  isPromoter: Boolean
+  isSubscribedBiweeklyReport: Boolean
+  isSubscribedCommentsEmails: Boolean
+  isSubscribedEduEmails: Boolean
+  isSubscribedLikesEmails: Boolean
+  isSubscribedMarketingEmails: Boolean
+  isSubscribedMetricUpdates: Boolean
+  isSubscribedWeeklyNewsletter: Boolean
+  pageSize: Int
+  paidWith: String
+  sanbaseVersion: String
+  selfApiRateLimitsResetAt: DateTime
+  signalNotifyEmail: Boolean
+  signalNotifyTelegram: Boolean
+  signalsPerDayLimit: json
+  tableColumns: json
+  theme: String
+}
+
+type UserTrigger {
+  trigger: Trigger
+  user: PublicUser
+  userId: Int
+  views: Int
+  votedAt: DateTime
+  votes: Vote
+}
+
+type Vote {
+  currentUserVotes: Int
+  totalVoters: Int!
+  totalVotes: Int!
+}
+
+type VoteResult {
+  votedAt: DateTime
+  votes: Vote
+}
+
+type VotesStats {
+  alertVotes: Int
+  chartConfigurationVotes: Int
+  dashboardVotes: Int
+  insightVotes: Int
+  queryVotes: Int
+  totalVotes: Int
+  watchlistVotes: Int
+}
+
+type WatchlistSettings {
+  jsonData: json
+  pageSize: Int
+  tableColumns: json
+  timeWindow: String
+}
+
+type WatchlistStats {
+  blockchainAddressesCount: Int
+  projectsCount: Int
+  trendingNames: [String]
+  trendingProjects: [Project]
+  trendingSlugs: [String]
+  trendingTickers: [String]
+}
+
+type Webinar {
+  description: String!
+  endTime: DateTime!
+  imageUrl: String!
+  insertedAt: DateTime!
+  isPro: Boolean!
+  startTime: DateTime!
+  title: String!
+  url: String
+}
+
+type WordContext {
+  score: Float!
+  word: String!
+}
+
+type WordWithContext {
+  bearishSummary: String!
+  bullishSummary: String!
+  context: [WordContext]
+  negativeBbSentimentRatio: Float
+  negativeSentimentRatio: Float
+  neutralBbSentimentRatio: Float
+  neutralSentimentRatio: Float
+  positiveBbSentimentRatio: Float
+  positiveSentimentRatio: Float
+  project: Project
+  score: Float!
+  summaries: [TrendingWordSummary]
+  summary: String!
+  topDocuments: [SocialDocument]
+  word: String!
+}
+
+type WordsContext {
+  context: [WordContext]
+  word: String!
+}
+
+type WordsSocialDominance {
+  socialDominance: Float!
+  word: String!
+}
+
+type WordsSocialVolume {
+  timeseriesData: [SocialVolume]
+  word: String!
+}
+
+type Query {
+  academyAutocompleteQuestions(query: String!): [AcademyQuestionSuggestion]
+  academySearch(query: String!, topK: Int): [AcademySearchResult]
+  activeWidgets: [ActiveWidget]
+  addressHistoricalBalanceChange(addresses: [String], from: DateTime!, selector: HistoricalBalanceSelector, to: DateTime!): [AddressBalanceChange]
+  alertsStats: AlertsStats
+  allCurrencyProjects(minVolume: Int, page: Int, pageSize: Int, selector: ProjectsSelectorInputObject): [Project]
+  allErc20Projects(minVolume: Int, page: Int, pageSize: Int, selector: ProjectsSelectorInputObject): [Project]
+  allExchanges(isDex: Boolean, slug: String!): [String]
+  allInsightCategories: [InsightCategoryWithCount]
+  allInsights(categories: [String], from: DateTime, isPaywallRequired: Boolean, isPulse: Boolean, page: Int, pageSize: Int, tags: [String], to: DateTime): [Post]
+  allInsightsBySearchTerm(from: DateTime, isPaywallRequired: Boolean, isPulse: Boolean, page: Int, pageSize: Int, searchTerm: String!, to: DateTime): [Post]
+  allInsightsByTag(from: DateTime, isPaywallRequired: Boolean, isPulse: Boolean, tag: String!, to: DateTime): [Post]
+  allInsightsForUser(categories: [String], from: DateTime, isPaywallRequired: Boolean, isPulse: Boolean, page: Int, pageSize: Int, to: DateTime, userId: Int!): [Post]
+  allInsightsUserVoted(from: DateTime, isPaywallRequired: Boolean, isPulse: Boolean, to: DateTime, userId: Int!): [Post]
+  allMarketSegments: [MarketSegment]
+  allProjects(includeHidden: Boolean, minVolume: Int, page: Int, pageSize: Int, selector: ProjectsSelectorInputObject): [Project]
+  allProjectsByFunction(function: json): ProjectsObject
+  allProjectsByTicker(ticker: String!): [Project]
+  allPublicTriggers: [PublicUserTrigger]
+  allTags: [Tag]
+  apiMetricDistribution: [MetricsCount]
+  apiMetricDistributionPerUser: [ApiMetricDistributionPerUser]
+  assetsChangelog(page: Int, pageSize: Int, searchTerm: String): AssetsChangelogResult
+  assetsHeldByAddress(address: String, selector: AddressSelectorInputObject, showAssetsWithZeroBalance: Boolean): [SlugBalance]
+  blockchainAddress(selector: BlockchainAddressSelectorInputObject!): BlockchainAddressDbStored
+  blockchainAddressLabelChanges(from: DateTime!, selector: BlockchainAddressSelectorInputObject!, to: DateTime!): [BlockchainAddressLabelChange]
+  blockchainAddressTransactionVolumeOverTime(addresses: [String], from: DateTime!, interval: interval!, selector: HistoricalBalanceSelector, to: DateTime!): [CombinedAddressTransactionVolumeOverTime]
+  blockchainAddressUserPair(selector: BlockchainAddressSelectorInputObject!): BlockchainAddressUserPair
+  chartConfiguration(id: Int!): ChartConfiguration
+  chartConfigurations(chartConfigurationIds: [Int], projectId: Int, projectSlug: String, userId: Int): [ChartConfiguration]
+  chat(id: ID!): Chat
+  chatMessages(chatId: ID!, limit: Int, offset: Int): [ChatMessage]
+  checkAnnualDiscountEligibility: AnnualDiscountEligibility
+  checkSanrNftSubscriptionEligibility: Boolean
+  comments(cursor: CursorInput, entityType: CommentEntityTypeEnum, id: ID, limit: Int): [Comment]
+  commentsFeed(cursor: CursorInput, limit: Int): [CommentsFeedItem]
+  computeRawClickhouseQuery(parameters: json!, query: String!): SqlQueryExecutionResult
+  currenciesMarketSegments: [MarketSegment]
+  currentUser: User
+  erc20MarketSegments: [MarketSegment]
+  ethFeesDistribution(from: DateTime!, limit: Int, to: DateTime!): [FeesDistribution]
+  ethSpentByAllProjects(from: DateTime!, to: DateTime!): Float
+  ethSpentByErc20Projects(from: DateTime!, to: DateTime!): Float
+  ethSpentOverTimeByAllProjects(from: DateTime!, interval: interval, to: DateTime!): [EthSpentData]
+  ethSpentOverTimeByErc20Projects(from: DateTime!, interval: interval, to: DateTime!): [EthSpentData]
+  featuredChartConfigurations: [ChartConfiguration]
+  featuredDashboards: [Dashboard]
+  featuredInsights(page: Int, pageSize: Int): [Post]
+  featuredQueries: [SqlQuery]
+  featuredScreeners: [UserList]
+  featuredTableConfigurations: [TableConfiguration]
+  featuredUserTriggers: [PublicUserTrigger]
+  featuredWatchlists(type: WatchlistTypeEnum): [UserList]
+  fetchAllPublicWatchlists(type: WatchlistTypeEnum): [UserList]
+  fetchDefaultPaymentInstrument: PaymentInstrument
+  fetchPublicWatchlists(type: WatchlistTypeEnum): [UserList]
+  fetchWatchlists(type: WatchlistTypeEnum): [UserList]
+  gasUsed(from: DateTime!, interval: interval, slug: String, to: DateTime!): [GasUsed]
+  generateTitleByQuery(sqlQueryText: String!): QueryHumanDescription
+  getAccessRestrictions(filter: AccessRestrictionFilterEnum, plan: PlansEnum, planName: String, product: ProductsEnum): [AccessRestriction]
+  getAuthSessions: [AuthSession]
+  getAvailableBlockchains: [BlockchainMetadata]
+  getAvailableMetrics(hasIncompleteData: Boolean, nameRegexFilter: String, plan: PlansEnum, product: ProductsEnum): [String]
+  getAvailableMetricsForSelector(nameRegexFilter: String, selector: MetricTargetSelectorInputObject): [String]
+  getAvailableSignals: [String]
+  getBlockchainAddressLabels: [BlockchainAddressLabel]
+  getCachedDashboardQueriesExecutions(dashboardId: Int!, parametersOverride: json): DashboardCachedExecutions
+  getCachedQueryExecutions(queryId: Int!): [QueryCachedExecution]
+  getCategoriesAndGroups: json
+  getChartConfigurationSharedAccessToken(chartConfigurationId: Int!): SharedAccessToken
+  getClickhouseDatabaseMetadata(functionsFilter: ClickhouseMetadataFunctionFilterEnum): ClickhouseDatabaseMetadata
+  getClickhouseQueryExecutionStats(clickhouseQueryId: String!): SqlQueryExecutionStats
+  getCoupon(coupon: String!): Coupon
+  getCurrentUserNotifications(cursor: CursorInput, limit: Int, types: [String]): AppNotificationsPaginated
+  getCurrentUserSubmittedTwitterHandles: [MonitoredTwitterHandle]
+  getDashboard(id: Int!): Dashboard
+  getEcosystems(ecosystems: [String]): [Ecosystem]
+  getEventsForUsers(days: Int!, from: DateTime, to: DateTime, users: [ID]!): [UserEvent]
+  getFullUrl(shortUrl: String!): ShortUrl
+  getLabelBasedMetricLabels(metric: String!, owner: String, slug: String): [String]
+  getLabelBasedMetricOwners(metric: String!, slug: String): [String]
+  getLatestMajorTopics: MajorTopicsBatch
+  getMarketExchanges: [MarketExchange]
+  getMenu(id: Int!): json
+  getMetric(metric: String!, storeExecutedClickhouseSql: Boolean, version: String): Metric
+  getMetricSpikeExplanations(from: DateTime!, metric: String!, slug: String!, to: DateTime!): [MetricSpikeExplanation]
+  getMetricSpikeExplanationsCount(from: DateTime!, interval: interval!, metric: String!, slug: String!, to: DateTime!): [MetricSpikeExplanationsCount]
+  getMetricSpikeExplanationsMetadata: [MetricSpikeExplanationsMetadata]
+  getMetricsByCategory(category: String!): [MetricDisplayOrder]
+  getMetricsByCategoryAndGroup(category: String!, group: String!): [MetricDisplayOrder]
+  getMostRecent(currentUserDataOnly: Boolean, currentUserVotedForOnly: Boolean, cursor: CursorInputNoOrder, filter: EntityFilter, isFeaturedDataOnly: Boolean, minDescriptionLength: Int, minTitleLength: Int, page: Int, pageSize: Int, type: EntityType, types: [EntityType], userIdDataOnly: Int, userRoleDataOnly: UserRole): MostRecentEntityResult
+  getMostSimilar(aiSearchTerm: String!, currentUserDataOnly: Boolean, currentUserVotedForOnly: Boolean, cursor: CursorInputNoOrder, filter: EntityFilter, isFeaturedDataOnly: Boolean, minDescriptionLength: Int, minTitleLength: Int, page: Int, pageSize: Int, similarityThreshold: Float, type: EntityType, types: [EntityType], userIdDataOnly: Int, userRoleDataOnly: UserRole): MostSimilarEntityResult
+  getMostTweets(from: DateTime!, selector: SelectorSlugOrSlugInputObject!, size: Int!, to: DateTime!, tweetType: MostTweetType!): [SlugTweetsObject]
+  getMostUsed(cursor: CursorInputNoOrder, filter: EntityFilter, isFeaturedDataOnly: Boolean, minDescriptionLength: Int, minTitleLength: Int, page: Int, pageSize: Int, type: EntityType, types: [EntityType]): MostUsedEntityResult
+  getMostVoted(currentUserDataOnly: Boolean, currentUserVotedForOnly: Boolean, cursor: CursorInputNoOrder, filter: EntityFilter, isFeaturedDataOnly: Boolean, minDescriptionLength: Int, minTitleLength: Int, page: Int, pageSize: Int, type: EntityType, types: [EntityType], userRoleDataOnly: UserRole): MostVotedEntityResult
+  getNftCollectionByContract(selector: NftContractInputObject!): NftContractData
+  getNftTrades(direction: SortDirection, from: DateTime!, labelKey: NftTradeLabelKey!, orderBy: NftTradesOrderBy, page: Int!, pageSize: Int!, to: DateTime!): [NftTrade]
+  getNftTradesCount(from: DateTime!, labelKey: NftTradeLabelKey!, to: DateTime!): Int
+  getNotificationMutedUsers: [PublicUser]
+  getOrderedMetrics: MetricCategoriesAndMetrics
+  getOrderedMetricsV2: MetricCategoriesAndMetrics
+  getPresignedS3Url(object: String!): String
+  getPrimaryUser: PublicUser
+  getProjectTrendingHistory(from: DateTime!, interval: interval, size: Int!, slug: String!, to: DateTime!): [TrendingWordPosition]
+  getPublicQueries(page: Int!, pageSize: Int!): [SqlQuery]
+  getQueryExecutions(page: Int!, pageSize: Int!, queryId: Int): [SqlQueryExecutionStats]
+  getQuestionnaire(questionnaireUuid: String!): Questionnaire
+  getQuestionnaireUserAnswers(questionnaireUuid: String!): [QuestionnaireUserAnswer]
+  getRawSignals(from: DateTime!, selector: SignalTargetSelectorInputObject, signals: [String], to: DateTime!): [RawSignal]
+  getRecentlyAddedMetrics(days: Int): [MetricDisplayOrder]
+  getReports: [Report]
+  getReportsByTags(tags: [String]!): [Report]
+  getSecondaryUsers: [PublicUser]
+  getSheetsTemplates: [SheetsTemplate]
+  getSignal(signal: String!): Signal
+  getSqlQuery(id: Int!): SqlQuery
+  getSubscriptionWithPaymentIntent(subscriptionId: ID!): SubscriptionPlan
+  getTelegramDeepLink: String
+  getTrendingStories(from: DateTime!, interval: interval, size: Int!, source: TrendingStoriesSource, to: DateTime!): [TrendingStories]
+  getTrendingWords(from: DateTime!, interval: interval, size: Int!, source: TrendingWordsSource, to: DateTime!, wordTypeFilter: TrendingWordTypeFilter): [TrendingWords]
+  getTriggerById(id: Int!): UserTrigger
+  getUser(selector: UserSelectorInputObject!): PublicUser
+  getUserDashboards(page: Int!, pageSize: Int!, userId: Int): [DashboardForLists]
+  getUserQueries(page: Int!, pageSize: Int!, userId: Int): [SqlQuery]
+  getWebinars: [Webinar]
+  getWordTrendingHistory(from: DateTime!, interval: interval, size: Int!, to: DateTime!, word: String!): [TrendingWordPosition]
+  historicalBalance(address: String!, from: DateTime!, interval: interval!, selector: HistoricalBalanceSelector, slug: String, to: DateTime!): [HistoricalBalance]
+  historicalTriggerPoints(cooldown: String, settings: json!): [json]
+  historyPrice(from: DateTime!, interval: interval, slug: String, to: DateTime!): [PricePoint]
+  hyperliquidBboPrices: HyperliquidBboData
+  incomingTransfersSummary(address: String!, from: DateTime!, orderBy: TransfersSummaryOrderBy!, page: Int!, pageSize: Int!, slug: String!, to: DateTime!): [TransfersSummary]
+  insight(id: Int!): Post
+  isTelegramChatIdValid(chatId: String!): Boolean
+  isTwitterHandleMonitored(twitterHandle: String!): Boolean
+  majorTopicsBatch(granularity: TopicGranularity!, intervalStart: Date, limit: Int): MajorTopicsBatch
+  metricsChangelog(page: Int, pageSize: Int, searchTerm: String): MetricsChangelogResult
+  minersBalance(from: DateTime!, interval: interval, slug: String, to: DateTime!): [MinersBalance]
+  myChats: [ChatSummary]
+  ohlc(from: DateTime!, interval: interval, slug: String!, to: DateTime!): [Ohlc]
+  outgoingTransfersSummary(address: String!, from: DateTime!, orderBy: TransfersSummaryOrderBy!, page: Int!, pageSize: Int!, slug: String!, to: DateTime!): [TransfersSummary]
+  payments: [Payments]
+  popularInsightAuthors: [PublicUser]
+  popularSearchTerms(from: DateTime!, to: DateTime!): [PopularSearchTerm]
+  pppSettings: PppSettings
+  priceForTimestamps(datetimesList: [Unknown!]!, slug: String!, source: String): [PricePoint]
+  productsWithPlans: [Product]
+  project(id: ID!): Project
+  projectBySlug(slug: String!): Project
+  projectsCount(minVolume: Int, selector: ProjectsSelectorInputObject): ProjectsCount
+  projectsListHistoryStats(from: DateTime!, interval: interval!, slugs: [String]!, to: DateTime!): [CombinedProjectsStats]
+  projectsListStats(from: DateTime!, slugs: [String]!, to: DateTime!): [ProjectStats]
+  publicTriggersForUser(userId: ID!): [PublicUserTrigger]
+  realtimeTopHolders(page: Int!, pageSize: Int!, slug: String!): [TopHolders]
+  recentTransfers(address: String!, onlySender: Boolean!, page: Int, pageSize: Int, type: RecentTransactionsType!): [Transaction]
+  runDashboardSqlQuery(dashboardId: Int!, dashboardQueryMappingId: String!, forceParametersOverride: Boolean, parametersOverride: json, storeExecution: Boolean): SqlQueryExecutionResult
+  runRawSqlQuery(sqlQueryParameters: json!, sqlQueryText: String!): SqlQueryExecutionResult
+  runSqlQuery(id: Int!): SqlQueryExecutionResult
+  showPromoter: Promoter
+  socialDominanceTrendingWords: Float
+  socialVolumeProjects: [String]
+  subcomments(commentId: ID!, limit: Int): [Comment]
+  tableConfiguration(id: Int!): TableConfiguration
+  tableConfigurations(projectId: Int, userId: Int): [TableConfiguration]
+  timelineEvent(id: Int!): TimelineEvent
+  timelineEvents(cursor: CursorInput, filterBy: TimelineEventsFilterInput, limit: Int, orderBy: OrderByEnum): [TimelineEventsPaginated]
+  topExchangesByBalance(limit: Int, selector: MetricTargetSelectorInputObject, slug: String): [TopExchangeBalance]
+  topHolders(from: DateTime!, labels: [String], owners: [String], page: Int!, pageSize: Int!, slug: String!, to: DateTime!): [TopHolders]
+  topHoldersPercentOfTotalSupply(from: DateTime!, interval: interval, numberOfHolders: Int!, slug: String!, to: DateTime!): [TopHoldersPercentOfTotalSupply]
+  topTransfers(addressSelector: AddressSelector, from: DateTime!, inPageOrderBy: InPageOrderByType, inPageOrderByDirection: DirectionType, page: Int, pageSize: Int, slug: String!, to: DateTime!): [AccountBasedTransfer]
+  transactionVolumePerAddress(addresses: [String], from: DateTime!, selector: HistoricalBalanceSelector, to: DateTime!): [AddressTransactionVolume]
+  upcomingInvoice(subscriptionId: ID!): UpcomingInvoice
+  usdValueAddressChange(address: String, datetime: DateTime!, selector: AddressSelectorInputObject): [UsdValueAddressChange]
+  watchlist(id: ID!): UserList
+  watchlistBySlug(selector: ProjectsSelectorInputObject, slug: String!): UserList
+  wordContext(from: DateTime!, size: Int!, source: TrendingWordsSource!, to: DateTime!, word: String): [WordContext]
+  wordsContext(from: DateTime!, selector: WordSelectorInputObject, size: Int!, source: TrendingWordsSource!, to: DateTime!): [WordsContext]
+  wordsSocialDominance(selector: WordSelectorInputObject, treatWordAsLuceneQuery: Boolean): [WordsSocialDominance]
+  wordsSocialDominanceOld(selector: WordSelectorInputObject, treatWordAsLuceneQuery: Boolean): [WordsSocialDominance]
+  wordsSocialVolume(from: DateTime!, interval: interval, isMarketMetric: Boolean, selector: WordSelectorInputObject, to: DateTime!, treatWordAsLuceneQuery: Boolean): [WordsSocialVolume]
+}
+
+type Mutation {
+  addAlphaNarativesEmail(email: String!): Boolean
+  addBlockchainAddressLabels(labels: [String]!, selector: BlockchainAddressSelectorInputObject!): Boolean
+  addDashboardGlobalParameter(dashboardId: Int!, key: String!, value: DashboardGlobalParameterValue!): Dashboard
+  addDashboardGlobalParameterOverride(dashboardId: Int!, dashboardParameterKey: String!, dashboardQueryMappingId: String!, queryParameterKey: String!): Dashboard
+  addDashboardImageWidget(alt: String, dashboardId: Int!, url: String!): DashboardImageWidgetTuple
+  addDashboardTextWidget(body: String, dashboardId: Int!, description: String, name: String): DashboardTextWidgetTuple
+  addSanrEmail(email: String!): Boolean
+  addTwitterHandleToMonitor(notes: String, twitterHandle: String!): Boolean
+  addUserAffiliateDetails(marketingChannels: String, telegramHandle: String!): Boolean
+  addUserEthAddress(address: String!, messageHash: String!, signature: String!): User
+  addWatchlistItems(id: Int!, listItems: [InputListItem]!): UserList
+  cancelSubscription(subscriptionId: Int!): SubscriptionCancellation
+  changeEmail(email: String!): EmailLoginRequest
+  changeName(name: String!): User
+  changeUsername(username: String!): User
+  computeRawClickhouseQuery(parameters: json!, query: String!): SqlQueryExecutionResult
+  confirmLinkedUserToken(token: String!): Boolean
+  createChartConfiguration(settings: ProjectChartInputObject!): ChartConfiguration
+  createChartEvent(chartConfigurationId: ID!, chartEventDatetime: DateTime!, text: String!, title: String!): Post
+  createComment(content: String!, entityType: CommentEntityTypeEnum, id: Int, parentId: Int): Comment
+  createDashboard(description: String, isPublic: Boolean, name: String!, settings: json): Dashboard
+  createDashboardQuery(dashboardId: Int!, queryId: Int!, settings: json): DashboardQueryMapping
+  createInsight(imageUrls: [String], isPaywallRequired: Boolean, isPulse: Boolean, link: String, metrics: [String], prediction: String, priceChartProjectId: Int, shortDesc: String, tags: [String], text: String, title: String!): Post
+  createMenu(description: String, name: String!, parentId: Int, position: Int): json
+  createMenuItem(entity: MenuItemEntity!, parentId: Int!, position: Int): json
+  createPromoter(promoCode: String, refId: String): Promoter
+  createQuestionnaire(params: QuestionnaireParamsInputObject): Questionnaire
+  createQuestionnaireAnswer(params: QuestionnaireAnswerParamsInputObject, questionUuid: String!): QuestionnaireAnswer
+  createQuestionnaireQuestion(params: QuestionnaireQuestionParamsInputObject, questionnaireUuid: String!): Questionnaire
+  createShortUrl(data: String, fullUrl: String!): ShortUrl
+  createSqlQuery(description: String, isPublic: Boolean, name: String!, originId: Int, settings: json, sqlQueryParameters: json, sqlQueryText: String): SqlQuery
+  createStripeSetupIntent: SetupIntent
+  createTableConfiguration(settings: TableConfigurationInputObject!): TableConfiguration
+  createTrigger(cooldown: String, description: String, iconUrl: String, isActive: Boolean, isPublic: Boolean, isRepeating: Boolean, settings: json!, tags: [String], title: String!): UserTrigger
+  createWatchlist(color: ColorEnum, description: String, function: json, isPublic: Boolean, isScreener: Boolean, listItems: [InputListItem], name: String!, tableConfigurationId: Int, type: WatchlistTypeEnum): UserList
+  deleteChartConfiguration(id: ID!): ChartConfiguration
+  deleteChat(id: ID!): Chat
+  deleteComment(commentId: Int!): Comment
+  deleteDashboard(id: Int!): Dashboard
+  deleteDashboardGlobalParameter(dashboardId: Int!, key: String!): Dashboard
+  deleteDashboardGlobalParameterOverride(dashboardId: Int!, dashboardParameterKey: String!, dashboardQueryMappingId: String!): Dashboard
+  deleteDashboardImageWidget(dashboardId: Int!, imageWidgetId: String!): DashboardImageWidgetTuple
+  deleteDashboardQuery(dashboardId: Int!, dashboardQueryMappingId: String!): DashboardQueryMapping
+  deleteDashboardTextWidget(dashboardId: Int!, textWidgetId: String!): DashboardTextWidgetTuple
+  deleteDefaultPaymentInstrument: Boolean
+  deleteInsight(id: ID!): Post
+  deleteMenu(id: Int!): json
+  deleteMenuItem(id: Int!): json
+  deleteQuestionnaire(questionnaireUuid: String!): Questionnaire
+  deleteQuestionnaireAnswer(answerUuid: String!, params: QuestionnaireAnswerParamsInputObject): QuestionnaireAnswer
+  deleteQuestionnaireQuestion(questionUuid: String!): Questionnaire
+  deleteSqlQuery(id: Int!): SqlQuery
+  deleteTableConfiguration(id: ID!): TableConfiguration
+  destroyAllSessions: Boolean
+  destroyCurrentSession: Boolean
+  destroySession(refreshTokenJti: String!): Boolean
+  destroySessions: Boolean
+  disableNotificationTypes(types: [Unknown!]!): [NotificationTypeSetting]
+  disconnectTelegramBot: User
+  downvoteTimelineEvent(timelineEventId: Int): TimelineEvent
+  emailChangeVerify(emailCandidate: String!, token: String!): Login
+  emailLogin(consent: String, email: String!, failRedirectUrl: String, subscribeToWeeklyNewsletter: Boolean, successRedirectUrl: String, token: String, username: String): EmailLoginRequest
+  emailLoginVerify(email: String!, token: String!): Login
+  enableNotificationTypes(types: [Unknown!]!): [NotificationTypeSetting]
+  ethLogin(address: String!, messageHash: String!, signature: String!): Login
+  follow(userId: ID!): User
+  followingToggleNotification(disableNotifications: Boolean, userId: ID!): User
+  generateApikey: User
+  generateLinkedUserToken(secondaryUserId: Int!): String
+  logout: Logout
+  markAllNotificationsAsRead: MarkAllNotificationsAsReadResult
+  moderateDelete(entityId: Int!, entityType: EntityType!, flag: Boolean): Boolean
+  moderateFeatured(entityId: Int!, entityType: EntityType!, flag: Boolean): Boolean
+  moderateHide(entityId: Int!, entityType: EntityType!, flag: Boolean): Boolean
+  moderateUnpublishInsight(insightId: Int!): Boolean
+  muteUserNotifications(userId: ID!): PublicUser
+  obtainSanrNftSubscription: SubscriptionPlan
+  payNow(subscriptionId: Int!): SubscriptionPlan
+  publishInsight(id: ID!): Post
+  registerForWebinar(webinarId: ID): Boolean
+  removePrimaryUser(primaryUserId: ID!): Boolean
+  removeSecondaryUser(secondaryUserId: ID!): Boolean
+  removeTrigger(id: Int!): UserTrigger
+  removeUserEthAddress(address: String!): User
+  removeUserList(id: Int!): UserList
+  removeWatchlist(id: Int!): UserList
+  removeWatchlistItems(id: Int!, listItems: [InputListItem]!): UserList
+  renewCancelledSubscription(subscriptionId: Int!): SubscriptionPlan
+  revokeApikey(apikey: String!): User
+  revokeTelegramDeepLink: Boolean
+  selfResetApiRateLimits: User
+  sendChatMessage(chatId: ID, content: String!, context: ChatContextInput, type: ChatType): Chat
+  setNotificationReadStatus(isRead: Boolean!, notificationId: Int!): AppNotification
+  settingsToggleChannel(alertNotifyEmail: Boolean, alertNotifyTelegram: Boolean, signalNotifyEmail: Boolean, signalNotifyTelegram: Boolean): UserSettings
+  storeDashboardQueryExecution(compressedQueryExecutionResult: String!, dashboardId: Int!, dashboardQueryMappingId: String!): DashboardCachedExecutions
+  storeQueryExecution(compressedQueryExecutionResult: String!, queryId: Int!): Boolean
+  storeUserEntityInteraction(entityId: Int, entityType: EntityType, interactionType: EntityInteractionInteractionType): Boolean
+  submitChatMessageFeedback(feedbackType: ChatMessageFeedbackType!, messageId: ID!): ChatMessage
+  submitUserOnboarding(onboarding: UserOnboardingInputObject!): UserOnboarding
+  subscribe(cardToken: String, coupon: String, paymentMethodId: String, planId: Int!): SubscriptionPlan
+  subscribeEmailNewsletter(email: String!, token: String!, type: String): Boolean
+  trackEvents(anonymousUserId: String, events: json): Boolean
+  unfollow(userId: ID!): User
+  unmuteUserNotifications(userId: ID!): PublicUser
+  unvote(chartConfigurationId: Int, dashboardId: Int, insightId: Int, queryId: Int, timelineEventId: Int, userTriggerId: Int, watchlistId: Int): VoteResult
+  updateBlockchainAddressUserPair(labels: [String], notes: String, selector: BlockchainAddressSelectorInputObject!): BlockchainAddressUserPair
+  updateChartConfiguration(id: ID!, settings: ProjectChartInputObject!): ChartConfiguration
+  updateComment(commentId: Int!, content: String!): Comment
+  updateDashboard(description: String, id: Int!, isPublic: Boolean, name: String, settings: json): Dashboard
+  updateDashboardGlobalParameter(dashboardId: Int!, key: String!, newKey: String, newValue: DashboardGlobalParameterValue): Dashboard
+  updateDashboardImageWidget(alt: String, dashboardId: Int!, imageWidgetId: String!, url: String): DashboardImageWidgetTuple
+  updateDashboardQuery(dashboardId: Int!, dashboardQueryMappingId: String!, settings: json!): DashboardQueryMapping
+  updateDashboardTextWidget(body: String, dashboardId: Int!, description: String, name: String, textWidgetId: String!): DashboardTextWidgetTuple
+  updateDefaultPaymentInstrument(cardToken: String!): Boolean
+  updateInsight(id: ID!, imageUrls: [String], isPaywallRequired: Boolean, isPulse: Boolean, link: String, metrics: [String], prediction: String, priceChartProjectId: Int, shortDesc: String, tags: [String], text: String, title: String): Post
+  updateLastSeenEvent(timelineEventId: Int): SeenEvent
+  updateMenu(description: String, id: Int!, name: String, parentId: Int): json
+  updateMenuItem(id: Int!, parentId: Int, position: Int): json
+  updateQuestionnaire(params: QuestionnaireParamsInputObject, questionnaireUuid: String!): Questionnaire
+  updateQuestionnaireAnswer(answerUuid: String!, params: QuestionnaireAnswerParamsInputObject): QuestionnaireAnswer
+  updateQuestionnaireQuestion(params: QuestionnaireQuestionParamsInputObject, questionUuid: String!): Questionnaire
+  updateShortUrl(data: String, fullUrl: String, shortUrl: String!): ShortUrl
+  updateSqlQuery(description: String, id: Int!, isPublic: Boolean, name: String, originId: Int, settings: json, sqlQueryParameters: json, sqlQueryText: String): SqlQuery
+  updateSubscription(planId: Int!, subscriptionId: Int!): SubscriptionPlan
+  updateTableConfiguration(id: ID!, settings: TableConfigurationInputObject!): TableConfiguration
+  updateTermsAndConditions(marketingAccepted: Boolean, privacyPolicyAccepted: Boolean): User
+  updateTrigger(cooldown: String, description: String, iconUrl: String, id: Int!, isActive: Boolean, isPublic: Boolean, isRepeating: Boolean, settings: json, tags: [String], title: String): UserTrigger
+  updateUserProfile(avatalUrl: String, description: String, twitterHandle: String, websiteUrl: String): User
+  updateUserSettings(settings: UserSettingsInputObject): UserSettings
+  updateWatchlist(color: ColorEnum, description: String, function: json, id: Int!, isMonitored: Boolean, isPublic: Boolean, isScreener: Boolean, listItems: [InputListItem], name: String, tableConfigurationId: Int, type: WatchlistTypeEnum): UserList
+  updateWatchlistSettings(id: Int!, settings: WatchlistSettingsInputObject!): WatchlistSettings
+  uploadImage(images: [Upload]): [ImageData]
+  uploadReport(description: String, name: String!, report: Upload!): Report
+  upvoteTimelineEvent(timelineEventId: Int): TimelineEvent
+  verifyEmailNewsletter(email: String!): Boolean
+  vote(chartConfigurationId: Int, dashboardId: Int, insightId: Int, queryId: Int, timelineEventId: Int, userTriggerId: Int, watchlistId: Int): VoteResult
+}

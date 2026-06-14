@@ -1,114 +1,117 @@
 name: Santiment
-description: >
-  Santiment is a crypto market intelligence platform providing REST and GraphQL
-  APIs for accessing on-chain metrics, social sentiment data, developer activity,
-  and blockchain analytics signals. SanAPI covers 2,800+ crypto assets across 14
-  blockchain networks and offers more than 1,000 metrics including daily active
-  addresses, MVRV ratio, social sentiment scores, Twitter follower counts,
-  trending topics, developer commit activity, and labeled address intelligence
-  spanning 75+ million Ethereum addresses and 65+ million Bitcoin addresses.
-  Data is available via a GraphQL endpoint, a Python SDK (sanpy), S3 parquet
-  exports, and a Google Sheets plugin.
+description: 'Santiment is a crypto market intelligence platform providing REST and
+  GraphQL APIs for accessing on-chain metrics, social sentiment data, developer activity,
+  and blockchain analytics signals. SanAPI covers 2,800+ crypto assets across 14 blockchain
+  networks and offers more than 1,000 metrics including daily active addresses, MVRV
+  ratio, social sentiment scores, Twitter follower counts, trending topics, developer
+  commit activity, and labeled address intelligence spanning 75+ million Ethereum
+  addresses and 65+ million Bitcoin addresses. Data is available via a GraphQL endpoint,
+  a Python SDK (sanpy), S3 parquet exports, and a Google Sheets plugin.
+
+  '
 image: https://s3.amazonaws.com/kinlane-productions2/apis-json/apis-json-logo.jpg
 tags:
-  - Crypto
-  - Blockchain
-  - Market Intelligence
+- Crypto
+- Blockchain
+- Market Intelligence
+- On-Chain Metrics
+- Social Sentiment
+- Developer Activity
+- Analytics
+- GraphQL
+created: '2026-06-14'
+modified: '2026-06-14'
+url: https://raw.githubusercontent.com/api-evangelist/santiment/refs/heads/main/apis.yml
+specificationVersion: '0.19'
+apis:
+- name: SanAPI
+  description: 'The primary Santiment GraphQL API giving developers programmatic access
+    to on-chain metrics, social sentiment, developer activity, and price data for
+    2,800+ crypto assets. Supports timeseries queries with customisable intervals,
+    multi-asset batch requests, built-in transforms (moving averages, consecutive
+    differences), trending words/stories, and complex project filtering by watchlist
+    or metric threshold. Authentication is via an API key passed as a Bearer token.
+    Rate limits are enforced per minute, per hour, and per month; limits and historical
+    data depth vary by subscription plan.
+
+    '
+  image: https://s3.amazonaws.com/kinlane-productions2/apis-json/apis-json-logo.jpg
+  humanURL: https://api.santiment.net/
+  baseURL: https://api.santiment.net/graphql
+  tags:
+  - GraphQL
   - On-Chain Metrics
   - Social Sentiment
   - Developer Activity
-  - Analytics
-  - GraphQL
-created: "2026-06-14"
-modified: "2026-06-14"
-url: https://raw.githubusercontent.com/api-evangelist/santiment/refs/heads/main/apis.yml
-specificationVersion: "0.19"
-apis:
-  - name: SanAPI
-    description: >
-      The primary Santiment GraphQL API giving developers programmatic access
-      to on-chain metrics, social sentiment, developer activity, and price data
-      for 2,800+ crypto assets. Supports timeseries queries with customisable
-      intervals, multi-asset batch requests, built-in transforms (moving
-      averages, consecutive differences), trending words/stories, and complex
-      project filtering by watchlist or metric threshold. Authentication is via
-      an API key passed as a Bearer token. Rate limits are enforced per minute,
-      per hour, and per month; limits and historical data depth vary by
-      subscription plan.
-    image: https://s3.amazonaws.com/kinlane-productions2/apis-json/apis-json-logo.jpg
-    humanURL: https://api.santiment.net/
-    baseURL: https://api.santiment.net/graphql
-    tags:
-      - GraphQL
-      - On-Chain Metrics
-      - Social Sentiment
-      - Developer Activity
-      - Crypto Analytics
-    properties:
-      - type: Documentation
-        url: https://academy.santiment.net/for-developers/
-      - type: OpenAPI
-        url: https://api.santiment.net/graphiql
-      - type: Authentication
-        url: https://academy.santiment.net/products-and-plans/create-an-api-key/
-      - type: RateLimits
-        url: https://academy.santiment.net/sanapi/rate-limits/
-      - type: Plans
-        url: https://academy.santiment.net/products-and-plans/sanapi-plans/
-      - type: CommonQueries
-        url: https://academy.santiment.net/sanapi/common-queries/
-      - type: AvailableMetrics
-        url: https://api.santiment.net/available_metrics
-      - type: GitHubRepository
-        url: https://github.com/santiment/sanpy
-      - type: PythonSDK
-        url: https://pypi.org/project/sanpy/
-    contact:
-      - FN: Santiment Support
-        url: https://app.santiment.net/account
-        email: support@santiment.net
-  - name: Sansheets
-    description: >
-      A Google Sheets plugin that exposes Santiment metric data directly inside
-      spreadsheets using simple sheet functions. Requires a Santiment API key
-      and a Sanbase subscription. Ideal for analysts who prefer spreadsheet
-      workflows over code-based integrations.
-    image: https://s3.amazonaws.com/kinlane-productions2/apis-json/apis-json-logo.jpg
-    humanURL: https://sheets.santiment.net/
-    baseURL: https://sheets.santiment.net/
-    tags:
-      - Google Sheets
-      - Spreadsheet
-      - Crypto Data
-    properties:
-      - type: Documentation
-        url: https://academy.santiment.net/sansheets/adding-an-api-key/
-      - type: Plans
-        url: https://academy.santiment.net/products-and-plans/sanbase-plans/
-    contact:
-      - FN: Santiment Support
-        url: https://app.santiment.net/account
-common:
-  - type: Portal
-    url: https://academy.santiment.net/
-  - type: Pricing
-    url: https://app.santiment.net/pricing
-  - type: Status
-    url: https://status.santiment.net/
-  - type: Blog
-    url: https://insights.santiment.net/
-  - type: GitHubOrganization
-    url: https://github.com/santiment
-  - type: Plans
-    url: https://academy.santiment.net/products-and-plans/sanapi-plans/
-  - type: RateLimits
-    url: https://academy.santiment.net/sanapi/rate-limits/
+  - Crypto Analytics
+  properties:
+  - type: Documentation
+    url: https://academy.santiment.net/for-developers/
+  - type: OpenAPI
+    url: https://api.santiment.net/graphiql
   - type: Authentication
     url: https://academy.santiment.net/products-and-plans/create-an-api-key/
-  - type: TermsOfService
-    url: https://santiment.net/terms/
-  - type: PrivacyPolicy
-    url: https://santiment.net/privacy/
+  - type: RateLimits
+    url: https://academy.santiment.net/sanapi/rate-limits/
+  - type: Plans
+    url: https://academy.santiment.net/products-and-plans/sanapi-plans/
+  - type: CommonQueries
+    url: https://academy.santiment.net/sanapi/common-queries/
+  - type: AvailableMetrics
+    url: https://api.santiment.net/available_metrics
+  - type: GitHubRepository
+    url: https://github.com/santiment/sanpy
+  - type: PythonSDK
+    url: https://pypi.org/project/sanpy/
+  - url: graphql/santiment-graphql.md
+    type: GraphQL
+  contact:
+  - FN: Santiment Support
+    url: https://app.santiment.net/account
+    email: support@santiment.net
+- name: Sansheets
+  description: 'A Google Sheets plugin that exposes Santiment metric data directly
+    inside spreadsheets using simple sheet functions. Requires a Santiment API key
+    and a Sanbase subscription. Ideal for analysts who prefer spreadsheet workflows
+    over code-based integrations.
+
+    '
+  image: https://s3.amazonaws.com/kinlane-productions2/apis-json/apis-json-logo.jpg
+  humanURL: https://sheets.santiment.net/
+  baseURL: https://sheets.santiment.net/
+  tags:
+  - Google Sheets
+  - Spreadsheet
+  - Crypto Data
+  properties:
+  - type: Documentation
+    url: https://academy.santiment.net/sansheets/adding-an-api-key/
+  - type: Plans
+    url: https://academy.santiment.net/products-and-plans/sanbase-plans/
+  contact:
+  - FN: Santiment Support
+    url: https://app.santiment.net/account
+common:
+- type: Portal
+  url: https://academy.santiment.net/
+- type: Pricing
+  url: https://app.santiment.net/pricing
+- type: Status
+  url: https://status.santiment.net/
+- type: Blog
+  url: https://insights.santiment.net/
+- type: GitHubOrganization
+  url: https://github.com/santiment
+- type: Plans
+  url: https://academy.santiment.net/products-and-plans/sanapi-plans/
+- type: RateLimits
+  url: https://academy.santiment.net/sanapi/rate-limits/
+- type: Authentication
+  url: https://academy.santiment.net/products-and-plans/create-an-api-key/
+- type: TermsOfService
+  url: https://santiment.net/terms/
+- type: PrivacyPolicy
+  url: https://santiment.net/privacy/
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
