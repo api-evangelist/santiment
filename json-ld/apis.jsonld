@@ -1,0 +1,99 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "provider": "https://schema.org/provider",
+    "WebAPI": "https://schema.org/WebAPI"
+  },
+  "@type": "WebAPI",
+  "@id": "https://raw.githubusercontent.com/api-evangelist/santiment/refs/heads/main/apis.yml",
+  "name": "Santiment",
+  "description": "Santiment is a crypto market intelligence platform providing GraphQL APIs for accessing on-chain metrics, social sentiment data, developer activity, and blockchain analytics signals. SanAPI covers 2,800+ crypto assets across 14 blockchain networks and offers more than 1,000 metrics including daily active addresses, MVRV ratio, social sentiment scores, trending topics, developer commit activity, and labeled address intelligence.",
+  "url": "https://academy.santiment.net/for-developers/",
+  "image": "https://s3.amazonaws.com/kinlane-productions2/apis-json/apis-json-logo.jpg",
+  "keywords": [
+    "Crypto",
+    "Blockchain",
+    "Market Intelligence",
+    "On-Chain Metrics",
+    "Social Sentiment",
+    "Developer Activity",
+    "Analytics",
+    "GraphQL"
+  ],
+  "dateCreated": "2026-06-14",
+  "dateModified": "2026-06-14",
+  "termsOfService": "https://santiment.net/terms/",
+  "privacyPolicy": "https://santiment.net/privacy/",
+  "provider": {
+    "@type": "Organization",
+    "name": "Santiment",
+    "url": "https://santiment.net/",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "email": "support@santiment.net",
+      "url": "https://app.santiment.net/account"
+    }
+  },
+  "documentation": "https://academy.santiment.net/for-developers/",
+  "hasAPI": [
+    {
+      "@type": "WebAPI",
+      "name": "SanAPI",
+      "description": "The primary Santiment GraphQL API giving developers programmatic access to on-chain metrics, social sentiment, developer activity, and price data for 2,800+ crypto assets. Supports timeseries queries with customisable intervals, multi-asset batch requests, built-in transforms, trending words/stories, and complex project filtering.",
+      "url": "https://api.santiment.net/",
+      "endpointURL": "https://api.santiment.net/graphql",
+      "documentation": "https://academy.santiment.net/for-developers/",
+      "keywords": [
+        "GraphQL",
+        "On-Chain Metrics",
+        "Social Sentiment",
+        "Developer Activity",
+        "Crypto Analytics"
+      ],
+      "potentialAction": [
+        {
+          "@type": "Action",
+          "name": "Authenticate",
+          "url": "https://academy.santiment.net/products-and-plans/create-an-api-key/"
+        },
+        {
+          "@type": "Action",
+          "name": "ViewRateLimits",
+          "url": "https://academy.santiment.net/sanapi/rate-limits/"
+        },
+        {
+          "@type": "Action",
+          "name": "ViewPlans",
+          "url": "https://academy.santiment.net/products-and-plans/sanapi-plans/"
+        },
+        {
+          "@type": "Action",
+          "name": "ExploreMetrics",
+          "url": "https://api.santiment.net/available_metrics"
+        }
+      ],
+      "codeRepository": "https://github.com/santiment/sanpy"
+    },
+    {
+      "@type": "WebAPI",
+      "name": "Sansheets",
+      "description": "A Google Sheets plugin that exposes Santiment metric data directly inside spreadsheets using simple sheet functions. Requires a Santiment API key and a Sanbase subscription.",
+      "url": "https://sheets.santiment.net/",
+      "documentation": "https://academy.santiment.net/sansheets/adding-an-api-key/",
+      "keywords": [
+        "Google Sheets",
+        "Spreadsheet",
+        "Crypto Data"
+      ]
+    }
+  ],
+  "sameAs": [
+    "https://github.com/santiment",
+    "https://pypi.org/project/sanpy/"
+  ],
+  "subjectOf": {
+    "@type": "WebSite",
+    "name": "Santiment Insights Blog",
+    "url": "https://app.santiment.net/insights"
+  }
+}

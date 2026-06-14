@@ -1,0 +1,42 @@
+{
+  "provider": "Santiment",
+  "blog_url": "https://app.santiment.net/insights",
+  "fetched": "2026-06-14",
+  "posts": [
+    {
+      "title": "This Week in Crypto, Full Written Summary: W2 June 2026",
+      "url": "https://app.santiment.net/insights/read/this-week-in-crypto-full-written-summary-w2-june-2026-10973",
+      "date": "2026-06-12",
+      "author": "david.u",
+      "description": "Explores SpaceX's NASDAQ debut and its potential impact on cryptocurrency markets, examining catalysts and executive insights."
+    },
+    {
+      "title": "Litecoin Smart Money Has Steadily Grown as LitVM Becomes Hot Topic!",
+      "url": "https://app.santiment.net/insights/read/litecoin-smart-money-has-steadily-grown-as-litvm-becomes-hot-topic-10972",
+      "date": "2026-06-12",
+      "author": "SanSights",
+      "description": "Analyzes growing whale and shark wallet activity for Litecoin alongside discussion of LitVM development."
+    },
+    {
+      "title": "VIDEO: This Week in Crypto - How Far Can SpaceX Take Crypto?",
+      "url": "https://app.santiment.net/insights/read/video-this-week-in-crypto-how-far-can-spacex-take-crypto-10971",
+      "date": "2026-06-12",
+      "author": "SanSights",
+      "description": "Video examination of SpaceX's debut, whale versus retail trading behaviors, and market implications."
+    },
+    {
+      "title": "These Stories Lead the Way in Talks Today!",
+      "url": "https://app.santiment.net/insights/read/these-stories-lead-the-way-in-talks-today-10970",
+      "date": "2026-06-12",
+      "author": "SanSights",
+      "description": "Identifies trending topics from social data driving crypto market discussions."
+    },
+    {
+      "title": "Ethereum Development Activity is Being Led By These Projects!",
+      "url": "https://app.santiment.net/insights/read/ethereum-development-activity-is-being-led-by-these-projects-10969",
+      "date": "2026-06-12",
+      "author": "SanSights",
+      "description": "Ranks Ethereum ecosystem projects by development activity metrics and directional trends."
+    }
+  ]
+}
