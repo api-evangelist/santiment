@@ -1,7 +1,7 @@
 {
   "provider": "Santiment",
   "blog_url": "https://app.santiment.net/insights",
-  "fetched": "2026-06-14",
+  "fetched": "2026-06-14T20:42:17Z",
   "posts": [
     {
       "title": "This Week in Crypto, Full Written Summary: W2 June 2026",
@@ -38,5 +38,16 @@
       "author": "SanSights",
       "description": "Ranks Ethereum ecosystem projects by development activity metrics and directional trends."
     }
-  ]
+  ],
+  "repo": "santiment",
+  "feeds": [
+    {
+      "source": "https://status.santiment.net/",
+      "feed_url": "https://status.santiment.net/feed",
+      "title": "",
+      "saved": 1,
+      "method": "discovered"
+    }
+  ],
+  "post_count": 1
 }
