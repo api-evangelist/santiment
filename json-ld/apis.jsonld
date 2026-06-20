@@ -9,7 +9,7 @@
   "name": "Santiment",
   "description": "Santiment is a crypto market intelligence platform providing GraphQL APIs for accessing on-chain metrics, social sentiment data, developer activity, and blockchain analytics signals. SanAPI covers 2,800+ crypto assets across 14 blockchain networks and offers more than 1,000 metrics including daily active addresses, MVRV ratio, social sentiment scores, trending topics, developer commit activity, and labeled address intelligence.",
   "url": "https://academy.santiment.net/for-developers/",
-  "image": "https://s3.amazonaws.com/kinlane-productions2/apis-json/apis-json-logo.jpg",
+  "image": "https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg",
   "keywords": [
     "Crypto",
     "Blockchain",
