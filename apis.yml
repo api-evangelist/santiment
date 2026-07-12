@@ -92,6 +92,8 @@ apis:
   - FN: Santiment Support
     url: https://app.santiment.net/account
 common:
+- type: DomainSecurity
+  url: security/santiment-domain-security.yml
 - type: Portal
   url: https://academy.santiment.net/
 - type: Pricing
