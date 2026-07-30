@@ -9,7 +9,18 @@ description: 'Santiment is a crypto market intelligence platform providing REST 
   a Python SDK (sanpy), S3 parquet exports, and a Google Sheets plugin.
 
   '
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/santiment.png
 tags:
 - Crypto
 - Blockchain
