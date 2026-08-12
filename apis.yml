@@ -103,6 +103,9 @@ apis:
   - FN: Santiment Support
     url: https://app.santiment.net/account
 common:
+- type: License
+  name: MIT
+  url: https://github.com/santiment/sanpy/blob/master/LICENSE
 - type: DomainSecurity
   url: security/santiment-domain-security.yml
 - type: Portal
