@@ -33,7 +33,7 @@ tags:
 created: '2026-06-14'
 modified: '2026-06-14'
 url: https://raw.githubusercontent.com/api-evangelist/santiment/refs/heads/main/apis.yml
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - name: SanAPI
   description: 'The primary Santiment GraphQL API giving developers programmatic access
