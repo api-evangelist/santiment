@@ -6,14 +6,13 @@
       "feed_url": "https://app.santiment.net/insights",
       "title": "",
       "saved": 0,
-      "method": "none",
-      "error": "parse_failed"
+      "method": "none"
     },
     {
       "source": "https://status.santiment.net/feed",
       "feed_url": "https://status.santiment.net/feed",
       "title": "",
-      "saved": 2,
+      "saved": 0,
       "method": "feed"
     },
     {
@@ -24,6 +23,6 @@
       "method": "discovered"
     }
   ],
-  "fetched": "2026-08-15T12:11:08Z",
-  "post_count": 33
+  "fetched": "2026-08-22T20:20:02Z",
+  "post_count": 34
 }
