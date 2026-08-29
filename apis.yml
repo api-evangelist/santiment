@@ -9,6 +9,19 @@ description: 'Santiment is a crypto market intelligence platform providing REST 
   a Python SDK (sanpy), S3 parquet exports, and a Google Sheets plugin.
 
   '
+deliveryModel:
+  model: open-core
+  license: MIT
+  open_source: true
+  commercial: true
+  callable_host: false
+  label: Open core · an OSS project plus a commercial hosted product
+  confidence: high
+  source:
+  - license
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: unknown
@@ -103,6 +116,8 @@ apis:
   - FN: Santiment Support
     url: https://app.santiment.net/account
 common:
+- type: IssueTracker
+  url: https://github.com/santiment/sanpy/issues
 - type: License
   name: MIT
   url: https://github.com/santiment/sanpy/blob/master/LICENSE
