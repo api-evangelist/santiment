@@ -116,6 +116,8 @@ apis:
   - FN: Santiment Support
     url: https://app.santiment.net/account
 common:
+- type: Website
+  url: https://www.santiment.net/
 - type: IssueTracker
   url: https://github.com/santiment/sanpy/issues
 - type: License

@@ -2,35 +2,29 @@
   "repo": "santiment",
   "feeds": [
     {
-      "source": "https://app.santiment.net/insights",
-      "feed_url": "https://app.santiment.net/insights",
+      "source": "https://status.santiment.net/",
+      "feed_url": "https://status.santiment.net/feed",
       "title": "",
       "saved": 0,
-      "method": "none",
-      "nature": "undetermined",
-      "nature_basis": null
+      "method": "discovered"
     },
     {
       "source": "https://status.santiment.net/feed",
       "feed_url": "https://status.santiment.net/feed",
       "title": "",
       "saved": 0,
-      "method": "feed",
-      "nature": "undetermined",
-      "nature_basis": null
+      "method": "feed"
     },
     {
-      "source": "https://status.santiment.net/",
-      "feed_url": "https://status.santiment.net/feed",
+      "source": "https://app.santiment.net/insights",
+      "feed_url": "https://app.santiment.net/insights",
       "title": "",
       "saved": 0,
-      "method": "discovered",
-      "nature": "undetermined",
-      "nature_basis": null
+      "method": "none"
     }
   ],
-  "fetched": "2026-08-30T22:33:40Z",
-  "post_count": 35,
+  "fetched": "2026-09-06T19:17:18Z",
+  "post_count": 36,
   "feed_nature": "undetermined",
   "feed_nature_basis": null,
   "feed_nature_note": "Whether these posts are the vendor publishing or its support community, decided on the URL path grammar of the saved posts -- not the hostname, which carries both on Khoros, and not author diversity, which flags large vendor blogs as forums. 'undetermined' means undetermined."
