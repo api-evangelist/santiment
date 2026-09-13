@@ -1,0 +1,35 @@
+generated: '2026-09-11'
+method: probed
+source: https://api.santiment.net/mcp
+status: published
+server:
+  name: santiment
+  transport: http
+  url: https://api.santiment.net/mcp
+deployment:
+  mode: remote
+  endpoint: https://api.santiment.net/mcp
+  verified: probed
+  probe: live
+  checked: '2026-09-11'
+  source: docs-check 2026-09-12 (endpoint found in the provider's own documentation, then probed)
+tools_count: 8
+tools:
+- name: assets_by_metric_tool
+  description: ''
+- name: combined_trends_tool
+  description: ''
+- name: fetch_insights_tool
+  description: ''
+- name: fetch_metric_data_tool
+  description: ''
+- name: insight_discovery_tool
+  description: ''
+- name: metrics_and_assets_discovery_tool
+  description: ''
+- name: show_chart
+  description: ''
+- name: trending_stories_tool
+  description: ''
+tools_source: live tools/list via initialize handshake, 2026-09-12 (signals/audit_mcp_authorship.py --probe)
+authorship: provider
