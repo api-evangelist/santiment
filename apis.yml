@@ -105,6 +105,10 @@ apis:
   baseURL: https://sheets.santiment.net/
   tags:
   - Google Sheets
+  - Spreadsheets
+  - Crypto Data
+  tags_raw:
+  - Google Sheets
   - Spreadsheet
   - Crypto Data
   properties:
