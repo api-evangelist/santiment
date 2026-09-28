@@ -16,20 +16,36 @@ deployment:
 tools_count: 8
 tools:
 - name: assets_by_metric_tool
-  description: ''
+  description: A powerful metrics-based project filtering and sorting tool that works with cryptocurrency
+    assets based on their metrics and allows for ordered, paginated results.  The tool allows for filtering
+    assets by a metric and sorting them according
 - name: combined_trends_tool
-  description: ''
+  description: 'Combined trends tool that fetches trending words, stories, and documents in parallel.  This
+    tool provides a unified view of all trending data - words with their documents and stories - in a
+    single response across all crypto projects.  ## Wh'
 - name: fetch_insights_tool
-  description: ''
+  description: Fetch full text content for specific santiment crypto insights IDs
 - name: fetch_metric_data_tool
-  description: ''
+  description: 'Fetch metric timeseries for one metric and one or many slugs.  Defaults: last 30 days
+    (time_period="30d"), interval="1d".  Use this when the assets are already known and the values over
+    time matter. For the opposite direction — "which asset'
 - name: insight_discovery_tool
-  description: ''
+  description: 'List Santiment insights (analyst-written crypto articles) published in a lookback window.
+    Returns metadata only — id, title, tags, author, link, published_at, prediction — never the article
+    body.  ## When to use  - The user asks what Santim'
 - name: metrics_and_assets_discovery_tool
-  description: ''
+  description: 'Catalog lookup: which metrics and which crypto assets (slugs) Santiment supports, and
+    whether a given metric exists for a given asset. Returns names and metadata only — it never returns
+    metric values or timeseries.  ## When to use  - Resolv'
 - name: show_chart
-  description: ''
+  description: Render a Santiment chart with an asset's price (OHLC) plus an optional overlay metric in
+    a second pane. The widget that consumes this tool is built on the Santiment chart library (lightweight-charts
+    under the hood), so the response is rende
 - name: trending_stories_tool
-  description: ''
+  description: 'Fetch current trending crypto stories with sentiment analysis  ## When to use vs `combined_trends_tool`  Prefer
+    this tool when only stories are needed: it is the cheap, fast path and has no per-tool rate-limit
+    sub-cap. `combined_trends_tool'
 tools_source: live tools/list via initialize handshake, 2026-09-12 (signals/audit_mcp_authorship.py --probe)
 authorship: provider
+descriptions_source: live tools/list (authorship probe or saved capture); filled by backfill-tools-from-authorship.py
+  --descriptions, 2026-09-28
