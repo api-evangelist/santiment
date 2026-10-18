@@ -35,6 +35,15 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/santiment.png
 tags:
+- Cryptocurrency
+- Blockchain
+- Market Intelligence
+- On-Chain Metrics
+- Social Sentiment
+- Developer Activity
+- Analytics
+- GraphQL
+tags_raw:
 - Crypto
 - Blockchain
 - Market Intelligence
