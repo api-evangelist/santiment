@@ -16,35 +16,326 @@ deployment:
 tools_count: 8
 tools:
 - name: assets_by_metric_tool
-  description: A powerful metrics-based project filtering and sorting tool that works with cryptocurrency
-    assets based on their metrics and allows for ordered, paginated results.  The tool allows for filtering
-    assets by a metric and sorting them according
+  description: "A powerful metrics-based project filtering and sorting tool that works with cryptocurrency\
+    \ assets\nbased on their metrics and allows for ordered, paginated results.\n\nThe tool allows for\
+    \ filtering assets by a metric and sorting them according to that same metric\nin ascending or descending\
+    \ metric, or just to sort the assets by a metric without filtering.\n\nThis tool allows you to discover\
+    \ projects that meet specific criteria by analyzing their\nmetrics over time periods. You can filter\
+    \ projects by absolute values (greater_than/less_than thresholds)\nor by percentage changes, or just\
+    \ sort projects by some metric.\n\n## When to use vs other metric tools\n\nThis tool scans the whole\
+    \ asset universe and returns one aggregated value per\nmatching asset — use it for \"which assets\
+    \ satisfy X\" and \"top N by X\".\nIt never returns a timeseries: for the values of a metric over\
+    \ time for\nalready-known slugs use `fetch_metric_data_tool`. To check that a metric\nexists (or fix\
+    \ a mistyped metric/slug) use `metrics_and_assets_discovery_tool`.\n\n## Use Cases\n- Get top 10 assets\
+    \ by marketcap, sorted in descending order\n- Get top 50 assets with highest dev_activity_1d\n- Find\
+    \ assets with price more than $10\n- Discover tokens whose price increased by more than 50% in the\
+    \ last 30 days\n- Screen for projects with market cap less than $100M\n- Identify assets that have\
+    \ dev_activity_1d decline by more than 20% in the past month\n\n## Examples\n- Get projects that have\
+    \ a price_usd in the last 24 hours and it's greater_than $500. Get the first 20\n  ordered by price_usd\
+    \ in descending order\n  `{metric: \"price_usd\", operator: :greater_than, threshold: 500.0, from:\
+    \ \"utc_now-24h\", to: \"utc_now\", sort: \"desc, page: 1, page_size: 20}`\n- Find projects whose\
+    \ price_usd today is 25% higher than 7 days ago, sorted by the highest percent increase in descending\
+    \ order. Get the first 100.\n  `{metric: \"price_usd\", operator: :percent_up, threshold: 25.0, from:\
+    \ \"utc_now-7d\", to: \"utc_now\", sort: \"desc\", page: 1, page_size: 100}`\n- Projects with current\
+    \ market cap less_than $50M. Get 100 such projects, ordered by marketcap in descending order.\n  `{metric:\
+    \ \"marketcap_usd\", operator: :less_than, threshold: 50000000.0, from: \"utc_now-1d\", to: \"utc_now\"\
+    , sort: \"desc\", page: 1, page_size: 100}`\n\nHere is how the filtering works:\n- For absolute value\
+    \ operators - `greater_than` and `less_than` - fetch the `metric` for each asset in the interval\n\
+    \ `from`-`to`, aggregting it using the specified `aggregation` method (defaulting to the metric's\
+    \ default).\n- For percent change operators - `percent_up` and `percent_down` - fetch the `metric`\
+    \ for each asset\n  in the interval `from-`to`, as well as in the same length interval immediately\
+    \ before `from`.\n  The two resulting values are compared to calculate the percentage change.\n\n\
+    Some metrics like price_usd and marketcap_usd are aggregated with `LAST` aggregation by default,\n\
+    meaning that the last known value in the queried interval is used. For percent change, this means\
+    \ that\nthe tool compares the last known price immediately before `from` and the last known price\
+    \ before `to`.\nOther metrics like transaction_volume_usd and social_volume_total (and most other\
+    \ volume metrics) are aggregated by\ndefault with SUM aggregation, meaning that the total combined\
+    \ sum in the queried interval is used. For these\nmetrics length of the time window is vital. A common\
+    \ mistake is to try to check if the social_total_total for\nthe last 5 minutes is greater_than some\
+    \ threshold. Five minutes is not enough for social volume to accumulate enough.\nIn such scenarios\
+    \ use a longer time window like 1 day or more."
 - name: combined_trends_tool
-  description: 'Combined trends tool that fetches trending words, stories, and documents in parallel.  This
-    tool provides a unified view of all trending data - words with their documents and stories - in a
-    single response across all crypto projects.  ## Wh'
+  description: 'Combined trends tool that fetches trending words, stories, and documents in parallel.
+
+
+    This tool provides a unified view of all trending data - words with their documents
+
+    and stories - in a single response across all crypto projects.
+
+
+    ## When to use vs `trending_stories_tool`
+
+
+    This is a superset of `trending_stories_tool`: same stories, plus trending
+
+    words, their context and AI-generated bull/bear summaries. It calls an LLM, so
+
+    it is slower and has a tighter per-tool rate-limit sub-cap than every other
+
+    tool. If only trending stories are needed, call `trending_stories_tool`
+
+    instead; set `include_words: false` / `include_stories: false` to drop a half
+
+    that is not needed. Do not call both tools for the same question.
+
+
+    ## Parameters
+
+
+    - `time_period` - Time period for trending data (e.g., ''1h'', ''6h'', ''1d'', ''7d''). Defaults to
+    ''1h'' (last hour).
+
+    - `size` - Number of items per category to return (max 10). Defaults to 10.
+
+
+    Only the 2 most recent trend periods are returned, whatever
+
+    `time_period` is. A period is 1 hour for time_period up to 1d, 6 hours up to 7d,
+
+    and 1 day beyond that, so e.g. ''2d'' returns only the last 12 hours. When
+
+    older periods are dropped, `metadata.notice` says so and
+
+    `metadata.returned_since` gives the start of the oldest period returned.
+
+    - `include_stories` - Include trending stories in response. Defaults to true.
+
+    - `include_words` - Include trending words in response. Defaults to true.
+
+
+    ## Response
+
+
+    - `trends` - Combined trending data containing stories and words.
+
+    - `metadata` - Request metadata including time period, size, and included data types.
+
+    - `errors` - Any non-fatal errors encountered during data fetching.
+
+
+    ## Trending Data Structure
+
+
+    ### Stories
+
+    - `title` - Title of the trending story.
+
+    - `summary` - Summary of the story.
+
+    - `score` - Trending score.
+
+    - `query` - Search query used to find the story.
+
+    - `related_tokens` - List of related crypto tokens (format: "BTC_bitcoin").
+
+    - `bullish_sentiment_ratio` - Bullish sentiment ratio.
+
+    - `bearish_sentiment_ratio` - Bearish sentiment ratio.
+
+
+    ### Words
+
+    - `word` - The trending word.
+
+    - `score` - Trending score.
+
+    - `slug` - Associated project slug (if word is project-related).
+
+    - `summary` - AI-generated summary of discussions.
+
+    - `bullish_summary` - Summary of bullish sentiment.
+
+    - `bearish_summary` - Summary of bearish sentiment.
+
+    - `positive_sentiment_ratio` - Positive sentiment ratio.
+
+    - `negative_sentiment_ratio` - Negative sentiment ratio.
+
+    - `neutral_sentiment_ratio` - Neutral sentiment ratio.
+
+    - `positive_bb_sentiment_ratio` - Positive bull/bear sentiment ratio.
+
+    - `negative_bb_sentiment_ratio` - Negative bull/bear sentiment ratio.
+
+    - `neutral_bb_sentiment_ratio` - Neutral bull/bear sentiment ratio.
+
+    - `context` - Related words that appear with this trending word.
+
+    - `documents_summary` - AI-generated summary of related social media discussions.'
 - name: fetch_insights_tool
   description: Fetch full text content for specific santiment crypto insights IDs
 - name: fetch_metric_data_tool
-  description: 'Fetch metric timeseries for one metric and one or many slugs.  Defaults: last 30 days
-    (time_period="30d"), interval="1d".  Use this when the assets are already known and the values over
-    time matter. For the opposite direction — "which asset'
+  description: 'Fetch metric timeseries for one metric and one or many slugs, or for a text
+
+    search term.
+
+
+    Defaults: last 30 days (time_period="30d"), interval="1d".
+
+
+    Pass `text` instead of `slugs` to get a social metric for any word or phrase
+
+    (e.g. how often "sold" was mentioned), not just for an asset.
+
+
+    Use this when the assets are already known and the values over time matter.
+
+    For the opposite direction — "which assets satisfy X" / "top N by X", one
+
+    aggregated value per asset across the whole universe — use
+
+    `assets_by_metric_tool`. To confirm a metric exists for a slug first, use
+
+    `metrics_and_assets_discovery_tool`; to draw the result, use `show_chart`.'
 - name: insight_discovery_tool
-  description: 'List Santiment insights (analyst-written crypto articles) published in a lookback window.
-    Returns metadata only — id, title, tags, author, link, published_at, prediction — never the article
-    body.  ## When to use  - The user asks what Santim'
+  description: "List Santiment insights (analyst-written crypto articles) published in a\nlookback window.\
+    \ Returns metadata only — id, title, tags, author, link,\npublished_at, prediction — never the article\
+    \ body.\n\n## When to use\n\n- The user asks what Santiment analysts have written or published recently.\n\
+    - As step 1 of a two-step read: discover ids here, then pass them to\n  `fetch_insights_tool` for\
+    \ the full text.\n\n## When not to use\n\n- Full text of an insight — use `fetch_insights_tool` (it\
+    \ needs ids, so call\n  this tool first).\n- What the market is talking about right now — use `trending_stories_tool`\n\
+    \  (stories only) or `combined_trends_tool` (stories + trending words).\n  Insights are human-authored\
+    \ articles, not live social signal.\n- Numeric metric timeseries for an asset — use `fetch_metric_data_tool`.\n\
+    - Ranking or screening assets by a metric — use `assets_by_metric_tool`.\n\n## Parameters\n\n- `time_period`\
+    \ (optional, default `\"30d\"`) — lookback window as\n  `<integer><unit>`, unit one of `s`, `m`, `h`,\
+    \ `d`, `w`, `y`\n  (e.g. `\"12h\"`, `\"7d\"`, `\"90d\"`, `\"1y\"`). The window is always\n  `now -\
+    \ time_period` .. `now`; absolute dates and future ranges are not\n  supported. An unparsable value\
+    \ returns an error, not a default.\n\nThere is no tag, author, asset or full-text filter — filter\
+    \ the returned\nlist yourself.\n\n## Behavior\n\n- Read-only: no writes, no state change, nothing\
+    \ destructive.\n- Requires an authenticated Santiment account (API key or OAuth token);\n  every call\
+    \ counts against the account plan's MCP rate limits.\n- Returns only published, moderator-approved\
+    \ insights, newest first, hard\n  capped at 100 per call. A wide `time_period` can hit that cap and\
+    \ silently\n  omit the oldest insights — if `total_count` is 100, narrow the window and\n  call again.\n\
+    \n## Response\n\nJSON object:\n\n    {\n      \"insights\": [\n        {\n          \"id\": 1234,\
+    \                          // integer, feed to fetch_insights_tool\n          \"title\": \"...\",\n\
+    \          \"tags\": [\"BTC\", \"bitcoin\"],          // asset tickers/slugs and topics\n        \
+    \  \"link\": \"https://app.santiment.net/insights/read/1234\",\n          \"published_at\": \"2025-01-30T10:00:00Z\"\
+    ,\n          \"author\": \"username\",                // \"Anonymous\" when unset\n          \"prediction\"\
+    : \"semi_bullish\"         // heavy_bullish | semi_bullish |\n                                   \
+    \            // semi_bearish | heavy_bearish |\n                                               //\
+    \ none | unspecified | null\n        }\n      ],\n      \"time_period\": \"30d\",\n      \"total_count\"\
+    : 1,\n      \"period_start\": \"2024-12-31T10:00:00Z\",\n      \"period_end\": \"2025-01-30T10:00:00Z\"\
+    \n    }\n\nAn empty `insights` list with `total_count: 0` means nothing was published in\nthe window\
+    \ — a valid result, not an error."
 - name: metrics_and_assets_discovery_tool
-  description: 'Catalog lookup: which metrics and which crypto assets (slugs) Santiment supports, and
-    whether a given metric exists for a given asset. Returns names and metadata only — it never returns
-    metric values or timeseries.  ## When to use  - Resolv'
+  description: "Catalog lookup: which metrics and which crypto assets (slugs) Santiment\nsupports, and\
+    \ whether a given metric exists for a given asset. Returns names\nand metadata only — it never returns\
+    \ metric values or timeseries.\n\n## When to use\n\n- Resolve a name before any data call: turn \"\
+    Ethereum\" into the slug\n  `ethereum`, or \"active addresses\" into the metric `daily_active_addresses`.\n\
+    - Check availability before calling `fetch_metric_data_tool`,\n  `assets_by_metric_tool` or `show_chart`,\
+    \ so a bad slug/metric does not\n  waste a data call.\n- Recover from a \"metric/slug not supported\"\
+    \ error from any other tool.\n\n## When not to use\n\n- Actual metric values over time — use `fetch_metric_data_tool`.\n\
+    - Ranking, filtering or screening assets by a metric value — use\n  `assets_by_metric_tool`.\n- Rendering\
+    \ a chart — use `show_chart`.\n- Trending words/stories or insights — use `combined_trends_tool` or\n\
+    \  `insight_discovery_tool`. Those data sets are not in this catalog.\n\n## Parameters\n\nBoth parameters\
+    \ are optional and the four combinations do four different\nthings:\n\n| Arguments               \
+    \   | Returns                                           |\n|----------------------------|---------------------------------------------------|\n\
+    | `{}`                       | Every supported metric and every supported asset  |\n| `{\"slug\":\
+    \ ...}`            | All metrics available for that one asset          |\n| `{\"metric\": ...}`  \
+    \        | All assets that support that one metric           |\n| `{\"slug\":..., \"metric\":...}`|\
+    \ Whether that exact pair is available (validation) |\n\n- `slug` — lowercase, hyphen-separated asset\
+    \ id: `\"bitcoin\"`, `\"ethereum\"`,\n  `\"avalanche\"`. Not a ticker: use `\"bitcoin\"`, not `\"\
+    BTC\"`. One slug per\n  call; lists are not accepted.\n- `metric` — lowercase snake_case metric id:\
+    \ `\"price_usd\"`,\n  `\"marketcap_usd\"`, `\"daily_active_addresses\"`. One metric per call.\n\n\
+    Examples:\n\n    {}\n    {\"slug\": \"ethereum\"}\n    {\"metric\": \"price_usd\"}\n    {\"slug\"\
+    : \"bitcoin\", \"metric\": \"daily_active_addresses\"}\n\n## Behavior\n\n- Read-only: no writes, no\
+    \ state change, nothing destructive.\n- Requires an authenticated Santiment account (API key or OAuth\
+    \ token);\n  every call counts against the account plan's MCP rate limits.\n- Results are cached server-side,\
+    \ so the catalog can lag a newly listed asset\n  by a few minutes.\n- Large responses (notably `{}`,\
+    \ which covers ~500 assets) are truncated to\n  stay under the client token limit. When that happens\
+    \ the response carries\n  `\"truncated\": true` plus `\"truncation_notice\"`, and the counts are adjusted\n\
+    \  to what was actually returned — pass `slug` or `metric` to get a complete\n  answer instead of\
+    \ a truncated one.\n\n## Response\n\nAlways a JSON object. Its shape depends on the arguments.\n\n\
+    `{}` — full catalog:\n\n    {\n      \"metrics\": [{\"name\": \"price_usd\", \"description\": \"...\"\
+    , \"unit\": \"USD\",\n                   \"supports_many_slugs\": true, \"min_interval\": \"1m\",\n\
+    \                   \"default_aggregation\": \"last\",\n                   \"documentation_urls\"\
+    : [{\"url\": \"...\"}]}],\n      \"assets\": [{\"name\": \"Bitcoin\", \"slug\": \"bitcoin\", \"ticker\"\
+    : \"BTC\"}],\n      \"metrics_count\": 120, \"assets_count\": 500, \"description\": \"...\"\n    }\n\
+    \n`{\"slug\": ...}` — `{\"slug\", \"metrics\" (same metric objects as above),\n\"metrics_count\",\
+    \ \"description\"}`.\n\n`{\"metric\": ...}` — `{\"metric\", \"assets\" (same asset objects as above),\n\
+    \"assets_count\", \"description\"}`.\n\n`{\"slug\": ..., \"metric\": ...}` — on success\n`{\"slug\"\
+    , \"metric\": <metric object>, \"available\": true, \"description\"}`.\n\nUnsupported input is reported\
+    \ inside a successful response, not as a tool\nerror: an unknown `slug` yields `{\"error\": \"...\"\
+    , \"available_assets\": [...]}`,\nan unknown `metric` yields `{\"error\": \"...\", \"available_metrics\"\
+    : [...]}`.\nThere is no `\"available\": false` — read `error`. Error messages include a\nfuzzy suggestion\
+    \ for near-miss metric names (`price_uds` -> `price_usd`), so\nretry with the suggested name."
 - name: show_chart
-  description: Render a Santiment chart with an asset's price (OHLC) plus an optional overlay metric in
-    a second pane. The widget that consumes this tool is built on the Santiment chart library (lightweight-charts
-    under the hood), so the response is rende
+  description: "Render a Santiment chart with an asset's price (OHLC) plus an optional\noverlay metric\
+    \ in a second pane. The widget that consumes this tool is\nbuilt on the Santiment chart library (lightweight-charts\
+    \ under the hood),\nso the response is render-ready — the client just feeds each `series`\nentry into\
+    \ the chart unchanged.\n\n## Parameters\n\n- `slug` — asset slug (e.g. `bitcoin`, `ethereum`). Defaults\
+    \ to `bitcoin`.\n- `primary` — what goes into the main pane.\n  - `\"price\"` (default) — OHLC candlestick.\n\
+    \  - any metric name from the catalog — line/area instead of candles.\n- `overlay` — optional metric\
+    \ name to render in a second pane.\n  Allowed values are listed below.\n- `range` — `24h`, `7d`, `30d`,\
+    \ `90d`, `1y`. Defaults to `30d`.\n\n## Available overlay metrics (catalog)\n\nsocial_volume_total,\
+    \ social_dominance_total, sentiment_balance_total,\nsentiment_weighted_total, daily_active_addresses,\
+    \ network_growth,\ntransaction_volume_usd, velocity, mvrv_usd, nvt, realized_value_usd,\nmvrv_long_short_diff_usd,\
+    \ exchange_balance,\nwhale_transaction_count_100k_usd_to_inf, top_holders_held_supply_percent,\ndev_activity,\
+    \ github_activity, volume_usd, marketcap_usd,\nfunding_rate_perp."
 - name: trending_stories_tool
-  description: 'Fetch current trending crypto stories with sentiment analysis  ## When to use vs `combined_trends_tool`  Prefer
-    this tool when only stories are needed: it is the cheap, fast path and has no per-tool rate-limit
-    sub-cap. `combined_trends_tool'
+  description: 'Fetch current trending crypto stories with sentiment analysis
+
+
+    ## When to use vs `combined_trends_tool`
+
+
+    Prefer this tool when only stories are needed: it is the cheap, fast path and
+
+    has no per-tool rate-limit sub-cap. `combined_trends_tool` is a superset —
+
+    same stories plus trending words, their context and AI-generated bull/bear
+
+    summaries — but it calls an LLM, so it is slower and capped much lower per
+
+    plan. Use it only when trending *words* or those summaries are actually
+
+    needed, and never call both for the same question.
+
+
+    ## Parameters
+
+
+    - `time_period` - Time period for trending stories (e.g., ''1h'', ''6h'', ''1d'', ''7d''). Defaults
+    to ''1h'' (last hour).
+
+    - `size` - Number of trending stories to return (max 10). Defaults to 10.
+
+
+    ## Response
+
+
+    - `trending_stories` - List of trending stories.
+
+    - `time_period` - Time period for trending stories.
+
+    - `size` - Number of trending stories to return.
+
+    - `period_start` - Start time of the time period.
+
+    - `period_end` - End time of the time period.
+
+    - `total_time_periods` - Total number of time periods.
+
+
+    ## Trending stories
+
+
+    - `title` - Title of the story.
+
+    - `summary` - Summary of the story.
+
+    - `bearish_sentiment_ratio` - Bearish sentiment ratio.
+
+    - `bullish_sentiment_ratio` - Bullish sentiment ratio.
+
+    - `score` - Score of the story.
+
+    - `query` - Query used to find the story.
+
+    - `related_tokens` - List of related tokens. They have the format `BTC_bitcoin` - first part is the
+    ticker,
+
+    second part is the slug in Sanbase.'
 tools_source: live tools/list via initialize handshake, 2026-09-12 (signals/audit_mcp_authorship.py --probe)
 authorship: provider
 descriptions_source: live tools/list (authorship probe or saved capture); filled by backfill-tools-from-authorship.py
